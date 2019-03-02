@@ -11,5 +11,15 @@ namespace TournamentCreator.Models
         public Team AwayTeam { get; set; }
         public int HomeScore { get; set; }
         public int AwayScore { get; set; }
+
+        public Team Winner
+        {
+            get
+            {
+                if (HomeScore > AwayScore) return HomeTeam;
+                if (HomeScore < AwayScore) return AwayTeam;
+                return null;
+            }
+        }
     }
 }
