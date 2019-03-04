@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
+using TournamentCreator.Models;
 
 namespace TournamentCreator.Controllers
 {
@@ -10,20 +12,23 @@ namespace TournamentCreator.Controllers
     {
         public ActionResult Index()
         {
+            TeamContext db = new TeamContext();
+            List<Team> myTeams = db.Teams.ToList();
+            int a = 0;
             return View();
         }
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
-
+            ViewBag.Message = "Your application description page.";           
             return View();
         }
 
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
-
+            
+            
             return View();
         }
     }
