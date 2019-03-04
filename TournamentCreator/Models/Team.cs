@@ -10,5 +10,6 @@ namespace TournamentCreator.Models
         public string Name { get; set; }
         public string Country { get; set; }
         public string Stadium { get; set; }
+        //branch testing
     }
 }
