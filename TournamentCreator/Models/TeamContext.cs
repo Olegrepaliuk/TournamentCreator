@@ -8,11 +8,20 @@ namespace TournamentCreator.Models
 {
     public class TeamContext : DbContext
     {
-        public TeamContext() :base("Data Source=WIN-8AVFSJ5T7N2;Initial Catalog=TournamentDB;Integrated Security=True")
+        //public TeamContext() :base("Data Source=WIN-8AVFSJ5T7N2;Initial Catalog=TournamentDB;Integrated Security=True")
+        //{
+
+        //}
+
+        public TeamContext()
         {
 
         }
 
+        public TeamContext(string connString) :base(connString)
+        {
+
+        }
         public DbSet<Team> Teams { get; set; }
     }
 }

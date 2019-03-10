@@ -12,7 +12,7 @@ namespace TournamentCreator.Controllers
     {
         public ActionResult Index()
         {
-            TeamContext db = new TeamContext();
+            TeamContext db = new TeamContext("TeamContext");
             List<Team> myTeams = db.Teams.ToList();
             int a = 0;
             return View();
