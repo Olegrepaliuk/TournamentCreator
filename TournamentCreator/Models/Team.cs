@@ -11,9 +11,24 @@ namespace TournamentCreator.Models
     public class Team
     {
         [Key]
+        [Required]
+        public Guid Id { get; private set; }
+
+        [Required]
         public string TName { get; set; }
+
+        [Required]
         public string Country { get; set; }
+
+        [Required]
+        public string City { get; set; }
+
         public string Stadium { get; set; }
+
+        public Team()
+        {
+            Id = Guid.NewGuid();
+        }
         //branch testing
     }
 }
