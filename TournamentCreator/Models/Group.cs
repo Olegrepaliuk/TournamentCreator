@@ -25,7 +25,7 @@ namespace TournamentCreator.Models
             GroupType = GroupType.UCLType;
         }
 
-        public Group(int teamsNum, GroupType groupType)
+        public Group(int teamsNum, GroupType groupType):this()
         {
             
             TeamsNum = teamsNum;
@@ -35,6 +35,11 @@ namespace TournamentCreator.Models
         public void GenerateCalendar()
         {
 
+        }
+
+        public void GenerateStandartUCL()
+        {
+            
         }
     }
 }

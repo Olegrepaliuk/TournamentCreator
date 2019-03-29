@@ -28,5 +28,11 @@ namespace TournamentCreator.Models
         {
             Id = Guid.NewGuid();
         }
+
+        public Match(Team homeTeam, Team awayTeam):this()
+        {
+            HomeTeam = homeTeam;
+            AwayTeam = awayTeam;
+        }
     }
 }

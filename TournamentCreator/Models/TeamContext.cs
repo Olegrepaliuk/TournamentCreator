@@ -23,5 +23,6 @@ namespace TournamentCreator.Models
 
         }
         public DbSet<Team> Teams { get; set; }
+        public DbSet<Group> Groups { get; set; }
     }
 }

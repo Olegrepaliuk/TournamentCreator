@@ -14,6 +14,7 @@ namespace TournamentCreator.Controllers
         {
             TeamContext db = new TeamContext("TeamContext");
             List<Team> myTeams = db.Teams.ToList();
+            List<Group> myGroups = db.Groups.ToList();
 
             Team t1 = new Team();
             t1.TName = "Test1Name";
@@ -21,6 +22,10 @@ namespace TournamentCreator.Controllers
             t1.City = "TestCity";
             db.Teams.Add(t1);
             db.SaveChanges();
+
+            //Team t2 = new Team();
+            //Match match1 = new Match();
+            //Guid g = match1.Id;
 
             int a = 0;
             return View();
