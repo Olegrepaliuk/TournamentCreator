@@ -7,6 +7,8 @@ namespace TournamentCreator.Models
 {
     public class Match
     {
+        public Guid Id { get; private set; }
+
         public Team HomeTeam { get; set; }
         public Team AwayTeam { get; set; }
         public int HomeScore { get; set; }
@@ -20,6 +22,11 @@ namespace TournamentCreator.Models
                 if (HomeScore < AwayScore) return AwayTeam;
                 return null;
             }
+        }
+
+        public Match()
+        {
+            Id = Guid.NewGuid();
         }
     }
 }
