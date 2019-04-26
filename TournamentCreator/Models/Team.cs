@@ -10,7 +10,7 @@ namespace TournamentCreator.Models
     [Table("Teams")]
     public class Team
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        [Key]
         [Required]
         public Guid Id { get; private set; }
 

@@ -16,12 +16,21 @@ namespace TournamentCreator.Controllers
             List<Team> myTeams = db.Teams.ToList();
             List<Group> myGroups = db.Groups.ToList();
 
-            Team t1 = new Team();
-            t1.TName = "Test1Name";
-            t1.Country = "TestCountry";
-            t1.City = "TestCity";
-            db.Teams.Add(t1);
+            //Team t1 = new Team();
+            //t1.TName = "Test1Name";
+            //t1.Country = "TestCountry";
+            //t1.City = "TestCity";
+            //db.Teams.Add(t1);
+            //db.SaveChanges();
+
+            Group g1 = new Group();
+            //g1.Teams.Add(t1);
+            db.Groups.Add(g1);
             db.SaveChanges();
+
+            List<Team> myTeams2 = db.Teams.ToList();
+            List<Group> myGroups2 = db.Groups.ToList();
+
 
             //Team t2 = new Team();
             //Match match1 = new Match();

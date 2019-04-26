@@ -20,6 +20,8 @@ namespace TournamentCreator.Models
         public List<Match> Matches { get; set; }
         public Group()
         {
+            Teams = new List<Team>();
+            Matches = new List<Match>();
             Id = Guid.NewGuid();
             TeamsNum = 4;
             GroupType = GroupType.UCLType;
@@ -27,7 +29,6 @@ namespace TournamentCreator.Models
 
         public Group(int teamsNum, GroupType groupType):this()
         {
-            
             TeamsNum = teamsNum;
             GroupType = GroupType;
         }
