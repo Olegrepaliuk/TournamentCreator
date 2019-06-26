@@ -5,15 +5,51 @@
 
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Football tournament</title>
+    <title>Tournament creator</title>
 </head>
 <body>
-    <div>
-        <p><a href="/Home/CurrentTournament">Resume tournament</a></p>
-        <p><a href="/Home/CreateTournament">Create tournament</a></p>
-    </div>
+    <table cellspacing="0" id="maket">
+        <tr>
+            <td id="leftcol">
+                <h1>Tournament creator</h1>
+            </td>
+            <td id="spacer"></td>
+            <td id="rightcol">
+                <h3>All tournaments</h3>
+                <table border="1" cellpadding="0" cellspacing="0" width="100">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
 
-
+                    <tbody>
+                        @foreach (var t in ViewBag.Tournaments)
+                        {
+                        <tr>
+                            <td>@t.Id</td>
+                            <td>@t.TmtName</td>
+                            @if (t.IsStarted)
+                            {
+                                <td>
+                                    <a href="/Home/Resume">Resume</a>
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    <a href="/Home/TmtSettings">Settings</a>
+                                </td>
+                            }
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+                <br/>
+            </td>
+        </tr>
+    </table>
 </body>
 </html>

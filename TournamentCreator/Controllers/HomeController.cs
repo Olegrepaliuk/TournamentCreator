@@ -13,6 +13,7 @@ namespace TournamentCreator.Controllers
         public ActionResult Index()
         {
             TeamContext db = new TeamContext("TeamContext");
+            /*
             List<Team> myTeams = db.Teams.ToList();
             List<Group> myGroups = db.Groups.ToList();
 
@@ -35,8 +36,13 @@ namespace TournamentCreator.Controllers
             //Team t2 = new Team();
             //Match match1 = new Match();
             //Guid g = match1.Id;
+            
+            */
+            List<Tournament> tournaments = db.Tournaments.ToList();
+            ViewBag.Tournaments = tournaments;
 
             int a = 0;
+
             return View();
         }
 

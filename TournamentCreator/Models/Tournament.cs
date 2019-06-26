@@ -9,7 +9,7 @@ namespace TournamentCreator.Models
     {
         public Guid Id { get; private set; }
         public string TmtName { get; set; }
-        public bool IsGoingNow { get; set; }
+        public bool IsStarted { get; set; }
 
         public List<Group> Groups { get; set; }
         public List<Match> Matches { get; set; }
@@ -18,7 +18,7 @@ namespace TournamentCreator.Models
         public Tournament()
         {
             Id = Guid.NewGuid();
-            IsGoingNow = false;
+            IsStarted = false;
         }
 
         public Tournament(string name):this()
