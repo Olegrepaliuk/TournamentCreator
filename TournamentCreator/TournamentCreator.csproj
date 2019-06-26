@@ -161,6 +161,7 @@
     <Compile Include="Models\Match.cs" />
     <Compile Include="Models\Team.cs" />
     <Compile Include="Models\TeamContext.cs" />
+    <Compile Include="Models\Tournament.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

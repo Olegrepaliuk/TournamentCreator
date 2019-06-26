@@ -24,5 +24,7 @@ namespace TournamentCreator.Models
         }
         public DbSet<Team> Teams { get; set; }
         public DbSet<Group> Groups { get; set; }
+        public DbSet<Match> Mathes { get; set; }
+        public DbSet<Tournament> Tournaments { get; set; }
     }
 }

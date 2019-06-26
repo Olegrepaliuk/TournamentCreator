@@ -30,7 +30,7 @@ namespace TournamentCreator.Models
         public Group(int teamsNum, GroupType groupType):this()
         {
             TeamsNum = teamsNum;
-            GroupType = GroupType;
+            GroupType = groupType;
         }
 
         public void GenerateCalendar()
