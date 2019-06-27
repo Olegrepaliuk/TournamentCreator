@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    Layout = null;
 }
 <!DOCTYPE html>
 
@@ -28,26 +28,26 @@
                     <tbody>
                         @foreach (var t in ViewBag.Tournaments)
                         {
-                        <tr>
-                            <td>@t.Id</td>
-                            <td>@t.TmtName</td>
-                            @if (t.IsStarted)
-                            {
-                                <td>
-                                    <a href="/Home/Resume">Resume</a>
-                                </td>
-                            }
-                            else
-                            {
-                                <td>
-                                    <a href="/Home/TmtSettings">Settings</a>
-                                </td>
-                            }
-                        </tr>
+                            <tr>
+                                <td>@t.Id</td>
+                                <td>@t.TmtName</td>
+                                @if (t.IsStarted)
+                                {
+                                    <td>
+                                        <a href="/Home/Resume">Resume</a>
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        <a href="/Home/TmtSettings">Settings</a>
+                                    </td>
+                                }
+                            </tr>
                         }
                     </tbody>
                 </table>
-                <br/>
+                <br />
             </td>
         </tr>
     </table>

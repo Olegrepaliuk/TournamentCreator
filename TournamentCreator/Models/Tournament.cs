@@ -19,6 +19,9 @@ namespace TournamentCreator.Models
         {
             Id = Guid.NewGuid();
             IsStarted = false;
+            Groups = new List<Group>();
+            Matches = new List<Match>();
+            Teams = new List<Team>();
         }
 
         public Tournament(string name):this()
