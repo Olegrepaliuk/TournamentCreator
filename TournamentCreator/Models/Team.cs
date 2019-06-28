@@ -7,7 +7,6 @@ using System.Web;
 
 namespace TournamentCreator.Models
 {
-    [Table("Teams")]
     public class Team
     {
         [Key]
@@ -21,8 +20,8 @@ namespace TournamentCreator.Models
         public string City { get; set; }
         public string Stadium { get; set; }
 
-        public List<Group> Groups { get; set; }
-        public List<Tournament> Tournaments { get; set; }
+        public ICollection<Group> Groups { get; set; }
+        public ICollection<Tournament> Tournaments { get; set; }
 
         public Team()
         {

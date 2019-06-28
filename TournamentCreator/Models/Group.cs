@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -9,15 +10,21 @@ namespace TournamentCreator.Models
 
     public class Group
     {
+        [Key]
+        [Required]
         public Guid Id { get; private set; }
 
         public string GName { get; set; }
+
+        [Required]
         public GroupType GroupType { get; set; }
         
+        [Required]
         public int TeamsNum { get; set; }
-        public List<Team> Teams { get; set; }
 
-        public List<Match> Matches { get; set; }
+        public ICollection<Team> Teams { get; set; }
+        public ICollection<Match> Matches { get; set; }
+
         public Group()
         {
             Teams = new List<Team>();
