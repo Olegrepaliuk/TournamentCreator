@@ -40,7 +40,7 @@
                                 else
                                 {
                                     <td>
-                                        <a href="/Home/TmtSettings">Settings</a>
+                                        @Html.ActionLink("Settings", "TmtSettings", new {tmtId = t.Id});
                                     </td>
                                 }
                             </tr>

@@ -16,21 +16,22 @@ namespace TournamentCreator.Controllers
             List<Team> myTeams = db.Teams.ToList();
             List<Group> myGroups = db.Groups.ToList();
 
-            Team t1 = new Team();
-            t1.TName = "Test1Name";
-            t1.Country = "TestCountry";
-            t1.City = "TestCity";
-            db.Teams.Add(t1);
-            db.SaveChanges();
 
-            Group g1 = new Group();
-            g1.Teams.Add(t1);
-            Group g2 = new Group();
-            g2.Teams.Add(t1);
+            //Team t1 = new Team();
+            //t1.TName = "Test1Name";
+            //t1.Country = "TestCountry";
+            //t1.City = "TestCity";
+            //db.Teams.Add(t1);
+            //db.SaveChanges();
 
-            db.Groups.Add(g1);
-            db.Groups.Add(g2);
-            db.SaveChanges();
+            //Group g1 = new Group();
+            //g1.Teams.Add(t1);
+            //Group g2 = new Group();
+            //g2.Teams.Add(t1);
+
+            //db.Groups.Add(g1);
+            //db.Groups.Add(g2);
+            //db.SaveChanges();
 
             /*
             List<Team> myTeams2 = db.Teams.ToList();
@@ -48,11 +49,27 @@ namespace TournamentCreator.Controllers
             Team t1 = new Team();
             */
 
+            //Tournament tmt1 = new Tournament("Tournament1");
+            //db.Tournaments.Add(tmt1);
+            //db.SaveChanges();
+
+            List<Tournament> tournaments = db.Tournaments.ToList();
+            ViewBag.Tournaments = tournaments;
+
+
             int a = 0;
 
             return View();
         }
 
+        public ActionResult TmtSettings(Guid tmtId)
+        {
+            TeamContext db = new TeamContext("TeamContext");
+            List<Tournament> myTournaments = db.Tournaments.ToList();
+            var foundTournament = myTournaments.Where(t => t.Id == tmtId).First();
+            ViewBag.foundTmt = foundTournament;
+            return View();
+        }
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";           
