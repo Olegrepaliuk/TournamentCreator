@@ -33,14 +33,14 @@
                                 <td>@t.TmtName</td>
                                 @if (t.IsStarted)
                                 {
-                                    <td>
-                                        <a href="/Home/Resume">Resume</a>
-                                    </td>
+                                <td>
+                                    @Html.ActionLink("Resume", "ResumeTmt", new { tmtId = t.Id })
+                                </td>
                                 }
                                 else
                                 {
                                     <td>
-                                        @Html.ActionLink("Settings", "TmtSettings", new {tmtId = t.Id});
+                                        @Html.ActionLink("Settings", "TmtSettings", new {tmtId = t.Id})
                                     </td>
                                 }
                             </tr>

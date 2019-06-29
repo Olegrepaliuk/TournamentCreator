@@ -34,6 +34,10 @@ namespace TournamentCreator.Models
             GroupType = GroupType.UCLType;
         }
 
+        public Group(string groupName):this()
+        {
+            GName = groupName;
+        }
         public Group(int teamsNum, GroupType groupType):this()
         {
             TeamsNum = teamsNum;

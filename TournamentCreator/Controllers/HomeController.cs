@@ -49,11 +49,11 @@ namespace TournamentCreator.Controllers
             Team t1 = new Team();
             */
 
-            //Tournament tmt1 = new Tournament("Tournament1");
-            //db.Tournaments.Add(tmt1);
-            //db.SaveChanges();
 
             List<Tournament> tournaments = db.Tournaments.ToList();
+            Tournament t = new Tournament("TestTmt");
+            db.Tournaments.Add(t);
+            db.SaveChanges();
             ViewBag.Tournaments = tournaments;
 
 
@@ -67,7 +67,8 @@ namespace TournamentCreator.Controllers
             TeamContext db = new TeamContext("TeamContext");
             List<Tournament> myTournaments = db.Tournaments.ToList();
             var foundTournament = myTournaments.Where(t => t.Id == tmtId).First();
-            ViewBag.foundTmt = foundTournament;
+            ViewBag.GroupsOfTmt = foundTournament.Groups.ToList();
+            ViewBag.FoundTmt = foundTournament;
             return View();
         }
         public ActionResult About()
