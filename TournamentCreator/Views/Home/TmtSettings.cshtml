@@ -4,5 +4,58 @@
     ViewBag.Title = "TmtSettings";
 }
 
-<h2>TmtSettings: @ViewBag.FoundTmt.Id</h2>
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Tournament settings</title>
+</head>
+<body>
+    <table cellspacing="0" id="maket">
+        <tr>
+            <td id="leftcol">
+                <h1>Tournament settings</h1>
+            </td>
+            <td id="spacer"></td>
+            <td id="rightcol">
+                <h3>Groups: </h3>
+                @foreach (var g in ViewBag.GroupsOfTmt)
+                {
+                <table border="1" cellpadding="0" cellspacing="0" width="100">
+                    <caption>@g.GName</caption>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>City</th>
+                            <th>Country</th>
+                            <th>Edit team</th>
+                            <th>Delete team</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var t in g.Teams)
+                        {
+                        <tr>
+                            <td>@t.TName</td>
+                            <td>@t.City</td>
+                            <td>@t.Country</td>
+                            <td>
+                                @Html.ActionLink("Edit this team", "EditTeam", new { tmtId = ViewBag.FoundTmt.Id, teamId = t.Id })
+                            </td>
+                            <td>
+                                @Html.ActionLink("Delete this team", "DelTeamFromGroup", new { tournamentId = ViewBag.FoundTmt.Id, groupId = g.Id, teamId = t.Id})
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+                    <br />
+                }
+
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
 

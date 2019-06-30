@@ -51,8 +51,12 @@ namespace TournamentCreator.Controllers
 
 
             List<Tournament> tournaments = db.Tournaments.ToList();
-            Tournament t = new Tournament("TestTmt");
-            db.Tournaments.Add(t);
+            var t = tournaments.First();
+            Team testTeam = new Team("Barca", "Spain", "Barcelona");
+            var g = t.Groups.First();
+            g.Teams.Add(testTeam);
+            //Tournament t = new Tournament("TestTmt");
+            //db.Tournaments.Add(t);
             db.SaveChanges();
             ViewBag.Tournaments = tournaments;
 
@@ -71,6 +75,18 @@ namespace TournamentCreator.Controllers
             ViewBag.FoundTmt = foundTournament;
             return View();
         }
+
+        public ActionResult DelTeamFromGroup(Guid tournamentId, Guid teamId, Guid groupId)
+        {
+            TeamContext db = new TeamContext("TeamContext");
+            List<Group> myGroups = db.Groups.ToList();
+            var foundGroup = myGroups.Where(t => t.Id == teamId).First();
+            var foundTeam = foundGroup.Teams.Where(t => t.Id == teamId).First();
+            foundGroup.Teams.Remove(foundTeam);
+            db.SaveChanges();
+            return RedirectToAction("TmtSettings", "Home", new { tmtId = tournamentId});
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";           

@@ -29,6 +29,12 @@ namespace TournamentCreator.Models
             Groups = new List<Group>();
             Tournaments = new List<Tournament>();
         }
-        //branch testing
+        
+        public Team(string tName, string country, string city):this()
+        {
+            TName = tName;
+            Country = country;
+            City = city;
+        }
     }
 }
