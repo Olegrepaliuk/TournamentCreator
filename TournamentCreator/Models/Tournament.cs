@@ -28,13 +28,15 @@ namespace TournamentCreator.Models
             Groups = new List<Group>();
             Matches = new List<Match>();
             Teams = new List<Team>();
-            CreateGroups();
+            //CreateGroups();
         }
 
         public Tournament(string name):this()
         {
             TmtName = name;
+            CreateGroups();
         }
+
 
         public void CreateGroups()
         {
