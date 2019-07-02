@@ -20,13 +20,39 @@ namespace TournamentCreator.Models
         public string City { get; set; }
         public string Stadium { get; set; }
 
-        public ICollection<Group> Groups { get; set; }
+        public static Dictionary<Guid, Team> Teams = new Dictionary<Guid, Team>();
+        //public ICollection<Group> Groups { get; set; }
         public ICollection<Tournament> Tournaments { get; set; }
+
+        [NotMapped]
+        public List<GroupsTeams> GroupTeam
+        {
+            get
+            {
+                List<GroupsTeams> res = new List<GroupsTeams>();
+                foreach (GroupsTeams gt in GroupsTeams.GroupTeam)
+                    if (gt.Team == this)
+                        res.Add(gt);
+                return res;
+            }
+        }
+        [NotMapped]
+        public List<Group> Groups
+        {
+            get
+            {
+                List<Group> res = new List<Group>();
+                foreach (GroupsTeams gt in GroupsTeams.GroupTeam)
+                    if (gt.Team == this)
+                        res.Add(gt.Group);
+                return res;
+            }
+        }
 
         public Team()
         {
             Id = Guid.NewGuid();
-            Groups = new List<Group>();
+            //Groups = new List<Group>();
             Tournaments = new List<Tournament>();
         }
         

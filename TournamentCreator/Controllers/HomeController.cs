@@ -12,9 +12,10 @@ namespace TournamentCreator.Controllers
     {
         public ActionResult Index()
         {
-            TeamContext db = new TeamContext("TeamContext");
+            TeamContext db = new TeamContext("TmtContext2");
             List<Team> myTeams = db.Teams.ToList();
             List<Group> myGroups = db.Groups.ToList();
+            List<GroupsTeams> groupsTeams = db.GroupsTeams.ToList();
 
 
             //Team t1 = new Team();
@@ -41,42 +42,50 @@ namespace TournamentCreator.Controllers
             //Team t2 = new Team();
             //Match match1 = new Match();
             //Guid g = match1.Id;
-            
-            
+
+
             List<Tournament> tournaments = db.Tournaments.ToList();
             ViewBag.Tournaments = tournaments;
 
             Team t1 = new Team();
             */
 
-            /*
-            Tournament tt = new Tournament("TestTmt");
-            db.Tournaments.Add(tt);
-            db.SaveChanges();
+            
+            //Tournament tt = new Tournament("TestTmt");
+            //db.Tournaments.Add(tt);
+            //db.SaveChanges();
 
             List<Tournament> tournaments = db.Tournaments.ToList();
             var t = tournaments.First();
             Team testTeam = new Team("Barca", "Spain", "Barcelona");
-            var g = t.Groups.First();
-            g.Teams.Add(testTeam);
-            
-            //db.Tournaments.Add(t);
+            db.Teams.Add(testTeam);
             db.SaveChanges();
-            */
-            List<Tournament> tournaments = db.Tournaments.ToList();
-            ViewBag.Tournaments = tournaments;
+
+            var g = t.Groups.First();
+            var gt = new GroupsTeams(g.Id, testTeam.Id);
+            GroupsTeams.GroupTeam.Add(gt);
+            db.GroupsTeams.Add(gt);
+            db.SaveChanges();
             
+
+            List<Tournament> tournaments2 = db.Tournaments.ToList();
+            ViewBag.Tournaments = tournaments2;
+
 
             int a = 0;
 
             return View();
+
         }
 
         public ActionResult TmtSettings(Guid tmtId)
         {
-            TeamContext db = new TeamContext("TeamContext");
+            TeamContext db = new TeamContext("TmtContext2");
             List<Tournament> myTournaments = db.Tournaments.ToList();
-            List<Group> myGroups = db.Groups.ToList();
+            Group.Groups = db.Groups.ToDictionary(g => g.Id);
+            Team.Teams = db.Teams.ToDictionary(t => t.Id);
+            GroupsTeams.GroupTeam = db.GroupsTeams.ToList();
+
             var foundTournament = myTournaments.Where(t => t.Id == tmtId).First();
             ViewBag.GroupsOfTmt = foundTournament.Groups.ToList();
             ViewBag.FoundTmt = foundTournament;
@@ -85,7 +94,7 @@ namespace TournamentCreator.Controllers
 
         public ActionResult DelTeamFromGroup(Guid tournamentId, Guid teamId, Guid groupId)
         {
-            TeamContext db = new TeamContext("TeamContext");
+            TeamContext db = new TeamContext("TmtContext2");
             List<Group> myGroups = db.Groups.ToList();
             var foundGroup = myGroups.Where(t => t.Id == teamId).First();
             var foundTeam = foundGroup.Teams.Where(t => t.Id == teamId).First();
