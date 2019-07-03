@@ -17,6 +17,7 @@ namespace TournamentCreator.Controllers
             List<Group> myGroups = db.Groups.ToList();
 
 
+            //new branch
             //Team t1 = new Team();
             //t1.TName = "Test1Name";
             //t1.Country = "TestCountry";
