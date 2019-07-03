@@ -108,6 +108,29 @@ namespace TournamentCreator.Controllers
             return RedirectToAction("TmtSettings", "Home", new { tmtId = tournamentId});
         }
 
+        [HttpGet]
+        public ActionResult EditTeam(Guid tournamentId, Guid teamId)
+        {
+            Team foundTeam = null;
+            Team.Teams = db.Teams.ToDictionary(t => t.Id);
+            if(Team.Teams.ContainsKey(teamId))
+            {
+                foundTeam = Team.Teams[teamId];
+            }
+            else
+            {
+                return View("ErrorPage");
+            }
+            ViewBag.TeamToEdit = foundTeam;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult EditTeam(Guid tournamentId, Team t)
+        {
+
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";           
