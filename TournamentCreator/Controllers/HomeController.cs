@@ -14,7 +14,7 @@ namespace TournamentCreator.Controllers
 
         public ActionResult Index()
         {
-            
+            //to master
             List<Team> myTeams = db.Teams.ToList();
             List<Group> myGroups = db.Groups.ToList();
             List<GroupsTeams> groupsTeams = db.GroupsTeams.ToList();
