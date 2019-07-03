@@ -12,7 +12,7 @@ namespace TournamentCreator.Controllers
     {
         public ActionResult Index()
         {
-            TeamContext db = new TeamContext("TeamContext");
+            TeamContext db = new TeamContext("TmtContext2");
             List<Team> myTeams = db.Teams.ToList();
             List<Group> myGroups = db.Groups.ToList();
 
@@ -58,15 +58,18 @@ namespace TournamentCreator.Controllers
             List<Tournament> tournaments = db.Tournaments.ToList();
             var t = tournaments.First();
             Team testTeam = new Team("Barca", "Spain", "Barcelona");
-            var g = t.Groups.First();
+            var g = t.Groups.Where(gr => gr.GName == "Group A").First();
             g.Teams.Add(testTeam);
             
             //db.Tournaments.Add(t);
             db.SaveChanges();
-            */
-            List<Tournament> tournaments = db.Tournaments.ToList();
-            ViewBag.Tournaments = tournaments;
             
+            */
+            List<Tournament> tournaments2 = db.Tournaments.ToList();
+            ViewBag.Tournaments = tournaments2;
+
+            List<Group> myGroups2 = db.Groups.ToList();
+            List<Team> myTeams2 = db.Teams.ToList();
 
             int a = 0;
 
@@ -75,9 +78,10 @@ namespace TournamentCreator.Controllers
 
         public ActionResult TmtSettings(Guid tmtId)
         {
-            TeamContext db = new TeamContext("TeamContext");
+            TeamContext db = new TeamContext("TmtContext2");
             List<Tournament> myTournaments = db.Tournaments.ToList();
             List<Group> myGroups = db.Groups.ToList();
+            List<Team> myTeams = db.Teams.ToList();
             var foundTournament = myTournaments.Where(t => t.Id == tmtId).First();
             ViewBag.GroupsOfTmt = foundTournament.Groups.ToList();
             ViewBag.FoundTmt = foundTournament;
@@ -86,7 +90,7 @@ namespace TournamentCreator.Controllers
 
         public ActionResult DelTeamFromGroup(Guid tournamentId, Guid teamId, Guid groupId)
         {
-            TeamContext db = new TeamContext("TeamContext");
+            TeamContext db = new TeamContext("TmtContext2");
             List<Group> myGroups = db.Groups.ToList();
             var foundGroup = myGroups.Where(t => t.Id == teamId).First();
             var foundTeam = foundGroup.Teams.Where(t => t.Id == teamId).First();
