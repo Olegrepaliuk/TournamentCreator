@@ -10,9 +10,11 @@ namespace TournamentCreator.Controllers
 {
     public class HomeController : Controller
     {
+        TeamContext db = new TeamContext("TmtContext2");
+
         public ActionResult Index()
         {
-            TeamContext db = new TeamContext("TmtContext2");
+            
             List<Team> myTeams = db.Teams.ToList();
             List<Group> myGroups = db.Groups.ToList();
             List<GroupsTeams> groupsTeams = db.GroupsTeams.ToList();
@@ -50,10 +52,10 @@ namespace TournamentCreator.Controllers
             Team t1 = new Team();
             */
 
-            
-            //Tournament tt = new Tournament("TestTmt");
-            //db.Tournaments.Add(tt);
-            //db.SaveChanges();
+            /*
+            Tournament tt = new Tournament("TestTmt");
+            db.Tournaments.Add(tt);
+            db.SaveChanges();
 
             List<Tournament> tournaments = db.Tournaments.ToList();
             var t = tournaments.First();
@@ -61,13 +63,13 @@ namespace TournamentCreator.Controllers
             db.Teams.Add(testTeam);
             db.SaveChanges();
 
-            var g = t.Groups.First();
+            var g = t.Groups.Where(gr => gr.GName == "Group A").First();
             var gt = new GroupsTeams(g.Id, testTeam.Id);
             GroupsTeams.GroupTeam.Add(gt);
             db.GroupsTeams.Add(gt);
             db.SaveChanges();
             
-
+            */
             List<Tournament> tournaments2 = db.Tournaments.ToList();
             ViewBag.Tournaments = tournaments2;
 
@@ -80,7 +82,7 @@ namespace TournamentCreator.Controllers
 
         public ActionResult TmtSettings(Guid tmtId)
         {
-            TeamContext db = new TeamContext("TmtContext2");
+            //TeamContext db = new TeamContext("TmtContext2");
             List<Tournament> myTournaments = db.Tournaments.ToList();
             Group.Groups = db.Groups.ToDictionary(g => g.Id);
             Team.Teams = db.Teams.ToDictionary(t => t.Id);
@@ -94,11 +96,14 @@ namespace TournamentCreator.Controllers
 
         public ActionResult DelTeamFromGroup(Guid tournamentId, Guid teamId, Guid groupId)
         {
-            TeamContext db = new TeamContext("TmtContext2");
+            //TeamContext db = new TeamContext("TmtContext2");
             List<Group> myGroups = db.Groups.ToList();
-            var foundGroup = myGroups.Where(t => t.Id == teamId).First();
-            var foundTeam = foundGroup.Teams.Where(t => t.Id == teamId).First();
-            foundGroup.Teams.Remove(foundTeam);
+            var foundGroup = myGroups.Where(t => t.Id == groupId).FirstOrDefault();
+            //var foundTeam = foundGroup.Teams.Where(t => t.Id == teamId).First();
+            //foundGroup.Teams.Remove(foundTeam);
+            GroupsTeams.GroupTeam.RemoveAll(gt => (gt.GroupId ==groupId)&(gt.TeamId == teamId));
+            var foundConn = db.GroupsTeams.First(gt => (gt.GroupId == groupId) & (gt.TeamId == teamId));
+            if (foundConn != null) db.GroupsTeams.Remove(foundConn);
             db.SaveChanges();
             return RedirectToAction("TmtSettings", "Home", new { tmtId = tournamentId});
         }
