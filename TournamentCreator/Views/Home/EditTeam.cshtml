@@ -19,17 +19,18 @@
                 <h3>Edit team</h3>
                 <br />
                 <br />
-                <form:form method="POST" action="EditTeam">
+                @using (Html.BeginForm("EditTeam", "Home", FormMethod.Post))
+                {
                     <input type="hidden" value="@ViewBag.TeamToEdit" name="teamToEdit" />
                     <table>
                         <tr>
-                            <td><input type="text" name="TName" value="@ViewBag.TeamToEdit.TName"/> </td>
+                            <td><input type="text" name="TName" value="@ViewBag.TeamToEdit.TName" /> </td>
                         </tr>
                         <tr>
                             <td><input type="text" name="Country" value="@ViewBag.TeamToEdit.Country" /> </td>
                         </tr>
                         <tr>
-                            <td><input type="text" name="City" value=">@ViewBag.TeamToEdit.City" /> </td>
+                            <td><input type="text" name="City" value="@ViewBag.TeamToEdit.City" /> </td>
                         </tr>
                         <tr>
                             <td><input type="text" name="Stadium" value="@ViewBag.TeamToEdit.Stadium" /> </td>
@@ -38,7 +39,7 @@
                             <td><input type="submit" value="Submit" /></td>
                         </tr>
                     </table>
-                </form:form>
+                }
             </td>
         </tr>
     </table>
