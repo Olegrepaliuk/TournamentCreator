@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "EditTeam";
+    Layout = null;
+}
+
+<html>
+<head>
+    <title>Edit team</title>
+</head>
+<body>
+    <table cellspacing="0" id="maket">
+        <tr>
+            <td id="leftcol">
+                <h1>Edit team</h1>
+            </td>
+            <td id="spacer"></td>
+            <td id="rightcol">
+                <h3>Edit team</h3>
+                <br />
+                <br />
+                <form:form method="POST" action="EditTeam">
+                    <input type="hidden" value="@ViewBag.TeamToEdit" name="teamToEdit" />
+                    <table>
+                        <tr>
+                            <td><input type="text" name="TName" value="@ViewBag.TeamToEdit.TName"/> </td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" name="Country" value="@ViewBag.TeamToEdit.Country" /> </td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" name="City" value=">@ViewBag.TeamToEdit.City" /> </td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" name="Stadium" value="@ViewBag.TeamToEdit.Stadium" /> </td>
+                        </tr>
+                        <tr>
+                            <td><input type="submit" value="Submit" /></td>
+                        </tr>
+                    </table>
+                </form:form>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
+

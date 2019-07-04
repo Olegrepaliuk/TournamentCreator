@@ -56,7 +56,9 @@ namespace TournamentCreator.Controllers
             Tournament tt = new Tournament("TestTmt");
             db.Tournaments.Add(tt);
             db.SaveChanges();
+            */
 
+            /*
             List<Tournament> tournaments = db.Tournaments.ToList();
             var t = tournaments.First();
             Team testTeam = new Team("Barca", "Spain", "Barcelona");
@@ -109,7 +111,7 @@ namespace TournamentCreator.Controllers
         }
 
         [HttpGet]
-        public ActionResult EditTeam(Guid tournamentId, Guid teamId)
+        public ActionResult EditTeam(Guid tmtId, Guid teamId)
         {
             Team foundTeam = null;
             Team.Teams = db.Teams.ToDictionary(t => t.Id);
@@ -126,9 +128,14 @@ namespace TournamentCreator.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditTeam(Guid tournamentId, Team t)
+        public ActionResult EditTeam(Team teamToEdit)
         {
-
+            if (ModelState.IsValid)
+            {
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View("ErrorPage");
         }
 
         public ActionResult About()
