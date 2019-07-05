@@ -1,4 +1,5 @@
-﻿
+﻿@model  TournamentCreator.Models.Team
+
 @{
     ViewBag.Title = "EditTeam";
     Layout = null;
@@ -6,7 +7,7 @@
 
 <html>
 <head>
-    <title>Edit team</title>
+    <title>Edit team </title>
 </head>
 <body>
     <table cellspacing="0" id="maket">
@@ -21,19 +22,18 @@
                 <br />
                 @using (Html.BeginForm("EditTeam", "Home", FormMethod.Post))
                 {
-                    <input type="hidden" value="@ViewBag.TeamToEdit" name="teamToEdit" />
                     <table>
                         <tr>
-                            <td><input type="text" name="TName" value="@ViewBag.TeamToEdit.TName" /> </td>
+                            <td><input type="text" name="TName" value="@Model.TName" /> </td>
                         </tr>
                         <tr>
-                            <td><input type="text" name="Country" value="@ViewBag.TeamToEdit.Country" /> </td>
+                            <td><input type="text" name="Country" value="@Model.Country" /> </td>
                         </tr>
                         <tr>
-                            <td><input type="text" name="City" value="@ViewBag.TeamToEdit.City" /> </td>
+                            <td><input type="text" name="City" value="@Model.City" /> </td>
                         </tr>
                         <tr>
-                            <td><input type="text" name="Stadium" value="@ViewBag.TeamToEdit.Stadium" /> </td>
+                            <td><input type="text" name="Stadium" value="@Model.Stadium" /> </td>
                         </tr>
                         <tr>
                             <td><input type="submit" value="Submit" /></td>

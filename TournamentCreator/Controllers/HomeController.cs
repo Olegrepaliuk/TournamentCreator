@@ -124,7 +124,7 @@ namespace TournamentCreator.Controllers
                 return View("ErrorPage");
             }
             ViewBag.TeamToEdit = foundTeam;
-            return View();
+            return View(foundTeam);
         }
 
         [HttpPost]
@@ -132,6 +132,7 @@ namespace TournamentCreator.Controllers
         {
             if (ModelState.IsValid)
             {
+                
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
