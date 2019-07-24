@@ -20,25 +20,33 @@
                 <h3>Edit team</h3>
                 <br />
                 <br />
-                @using (Html.BeginForm("EditTeam", "Home", FormMethod.Post))
+                @using (Html.BeginForm("EditTeam", "Home", new {needTeamId = ViewBag.TeamToEdit.Id}))
                 {
-                    <table>
-                        <tr>
-                            <td><input type="text" name="TName" value="@Model.TName" /> </td>
-                        </tr>
-                        <tr>
-                            <td><input type="text" name="Country" value="@Model.Country" /> </td>
-                        </tr>
-                        <tr>
-                            <td><input type="text" name="City" value="@Model.City" /> </td>
-                        </tr>
-                        <tr>
-                            <td><input type="text" name="Stadium" value="@Model.Stadium" /> </td>
-                        </tr>
-                        <tr>
-                            <td><input type="submit" value="Submit" /></td>
-                        </tr>
-                    </table>
+                <fieldset>
+                    @Html.HiddenFor(t => t.Id)
+                    <p>
+                        @Html.LabelFor(t => t.TName, "Name")
+                        <br />
+                        @Html.EditorFor(t => t.TName)
+                    </p>
+                    <p>
+                        @Html.LabelFor(t => t.Country, "Country")
+                        <br />
+                        @Html.EditorFor(t => t.Country)
+
+                    </p>
+                    <p>
+                        @Html.LabelFor(t => t.City, "City")
+                        <br />
+                        @Html.EditorFor(t => t.City)
+                    </p>
+                    <p>
+                        @Html.LabelFor(t => t.Stadium, "Stadium")
+                        <br />
+                        @Html.EditorFor(t => t.Stadium)
+                    </p>
+                    <p><input type="submit" value="Submit" /></p>
+                </fieldset>
                 }
             </td>
         </tr>

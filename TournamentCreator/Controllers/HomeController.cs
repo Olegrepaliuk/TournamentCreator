@@ -128,11 +128,19 @@ namespace TournamentCreator.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditTeam(Team teamToEdit)
+        public ActionResult EditTeam(Team teamToEdit, Guid needTeamId)
         {
             if (ModelState.IsValid)
             {
-                
+                List<Team> myTeams = db.Teams.ToList();
+                var foundTeam = myTeams.Where(t => t.Id == needTeamId).FirstOrDefault();
+                if(foundTeam != null)
+                {
+                    foundTeam.City = teamToEdit.City;
+                    foundTeam.Country = teamToEdit.Country;
+                    foundTeam.Stadium = teamToEdit.Stadium;
+                    foundTeam.TName = teamToEdit.TName;
+                }
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
