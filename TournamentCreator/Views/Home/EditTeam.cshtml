@@ -20,7 +20,7 @@
                 <h3>Edit team</h3>
                 <br />
                 <br />
-                @using (Html.BeginForm("EditTeam", "Home", new {needTeamId = ViewBag.TeamToEdit.Id}))
+                @using (Html.BeginForm("EditTeam", "Home", new {needTeamId = ViewBag.TeamToEdit.Id, tournamentId = ViewBag.TournamentId}))
                 {
                 <fieldset>
                     @Html.HiddenFor(t => t.Id)

@@ -124,11 +124,12 @@ namespace TournamentCreator.Controllers
                 return View("ErrorPage");
             }
             ViewBag.TeamToEdit = foundTeam;
+            ViewBag.TournamentId = tmtId;
             return View(foundTeam);
         }
 
         [HttpPost]
-        public ActionResult EditTeam(Team teamToEdit, Guid needTeamId)
+        public ActionResult EditTeam(Team teamToEdit, Guid needTeamId, Guid tournamentId)
         {
             if (ModelState.IsValid)
             {
@@ -142,9 +143,11 @@ namespace TournamentCreator.Controllers
                     foundTeam.TName = teamToEdit.TName;
                 }
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("TmtSettings", "Home", new { tmtId = tournamentId });
+                //return RedirectToAction("TmtSettings", "Home", new { tmtId = tournamentId});
             }
             return View("ErrorPage");
+            
         }
 
         public ActionResult About()
