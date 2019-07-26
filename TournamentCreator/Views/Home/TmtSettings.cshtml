@@ -50,6 +50,10 @@
                         }
                     </tbody>
                 </table>
+                    if (g.TeamsNum > g.Teams.Count)
+                    {
+                        @Html.ActionLink("Add team", "AddTeam");
+                    }
                     <br />
                 }
 
