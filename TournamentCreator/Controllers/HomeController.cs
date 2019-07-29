@@ -137,10 +137,7 @@ namespace TournamentCreator.Controllers
                 var foundTeam = myTeams.Where(t => t.Id == needTeamId).FirstOrDefault();
                 if(foundTeam != null)
                 {
-                    foundTeam.City = teamToEdit.City;
-                    foundTeam.Country = teamToEdit.Country;
-                    foundTeam.Stadium = teamToEdit.Stadium;
-                    foundTeam.TName = teamToEdit.TName;
+                    foundTeam.ChangeFields(teamToEdit);
                 }
                 db.SaveChanges();
                 return RedirectToAction("TmtSettings", "Home", new { tmtId = tournamentId });
@@ -150,6 +147,24 @@ namespace TournamentCreator.Controllers
             
         }
 
+        public ActionResult AddTeam(Guid tmtId, Guid groupId)
+        {
+            var tournament = FindTournamentById(tmtId);
+            var group = FindGroupById(groupId);
+            ViewBag.Tournament = tournament;
+            return View();
+        }
+
+        public ActionResult CreateTeam()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateTeam(Team team)
+        {
+            return View();
+        }
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";           
@@ -158,10 +173,30 @@ namespace TournamentCreator.Controllers
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
-            
-            
+            ViewBag.Message = "Your contact page."; 
             return View();
         }
+
+        public Tournament FindTournamentById(Guid tmtId)
+        {
+            List<Tournament> myTournaments = db.Tournaments.ToList();
+            var foundTournament = myTournaments.Where(t => t.Id == tmtId).First();
+            return foundTournament;
+        }
+
+        public Team FindTeamById(Guid teamId)
+        {
+            List<Team> myTeams = db.Teams.ToList();
+            var foundTeam = myTeams.Where(t => t.Id == teamId).First();
+            return foundTeam;
+        }
+
+        public Group FindGroupById(Guid groupId)
+        {
+            List<Group> myGroups = db.Groups.ToList();
+            var foundGroup = myGroups.Where(g => g.Id == groupId).First();
+            return foundGroup;
+        }
+
     }
 }

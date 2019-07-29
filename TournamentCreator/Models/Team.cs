@@ -62,5 +62,13 @@ namespace TournamentCreator.Models
             Country = country;
             City = city;
         }
+
+        public void ChangeFields(Team otherTeam)
+        {
+            City = otherTeam.City;
+            Country = otherTeam.Country;
+            Stadium = otherTeam.Stadium;
+            TName = otherTeam.TName;
+        }
     }
 }
