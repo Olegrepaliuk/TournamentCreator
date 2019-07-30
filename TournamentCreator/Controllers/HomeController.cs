@@ -152,16 +152,27 @@ namespace TournamentCreator.Controllers
             var tournament = FindTournamentById(tmtId);
             var group = FindGroupById(groupId);
             ViewBag.Tournament = tournament;
+            List<Team> availableTeams = db.Teams.ToList();
+            GroupsTeams.GroupTeam = db.GroupsTeams.ToList();
+            foreach (GroupsTeams gt in GroupsTeams.GroupTeam)
+            {
+                if(tournament.Groups.Contains(gt.Group))
+                {
+                    availableTeams.Remove(gt.Team);
+                }
+                
+            }
+            ViewBag.AvailableTeams = availableTeams;
             return View();
         }
 
-        public ActionResult CreateTeam()
+        public ActionResult CreateTeam(Guid tmtId, Guid grpId)
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult CreateTeam(Team team)
+        public ActionResult CreateTeam(Team team, Guid tmtId)
         {
             return View();
         }
