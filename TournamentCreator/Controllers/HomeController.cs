@@ -156,7 +156,8 @@ namespace TournamentCreator.Controllers
             GroupsTeams.GroupTeam = db.GroupsTeams.ToList();
             foreach (GroupsTeams gt in GroupsTeams.GroupTeam)
             {
-                if(tournament.Groups.Contains(gt.Group))
+                var localGroup = gt.Group;
+                if(tournament.Groups.Contains(localGroup))
                 {
                     availableTeams.Remove(gt.Team);
                 }

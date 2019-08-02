@@ -52,7 +52,7 @@
                 </table>
                     if (g.TeamsNum > g.Teams.Count)
                     {
-                        @Html.ActionLink("Add team", "AddTeam");
+                        @Html.ActionLink("Add team", "AddTeam", new {tmtId = ViewBag.FoundTmt.Id, groupId = g.Id});
                     }
                     <br />
                 }
