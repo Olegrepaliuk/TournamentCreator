@@ -72,6 +72,20 @@ namespace TournamentCreator.Models
             GroupType = groupType;
         }
 
+        public static bool operator ==(Group obj1, Group obj2)
+        {
+            if ((obj1.Id == obj2.Id) && (obj1.GName == obj2.GName) && (obj1.GroupType == obj2.GroupType))
+                return true;
+            return false;
+        }
+
+        public static bool operator !=(Group obj1, Group obj2)
+        {
+            if ((obj1.Id != obj2.Id) || (obj1.GName != obj2.GName) || (obj1.GroupType != obj2.GroupType))
+                return true;
+            return false;
+        }
+
         public void GenerateCalendar()
         {
 

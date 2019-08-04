@@ -189,21 +189,21 @@ namespace TournamentCreator.Controllers
             return View();
         }
 
-        public Tournament FindTournamentById(Guid tmtId)
+        private Tournament FindTournamentById(Guid tmtId)
         {
             List<Tournament> myTournaments = db.Tournaments.ToList();
             var foundTournament = myTournaments.Where(t => t.Id == tmtId).First();
             return foundTournament;
         }
 
-        public Team FindTeamById(Guid teamId)
+        private Team FindTeamById(Guid teamId)
         {
             List<Team> myTeams = db.Teams.ToList();
             var foundTeam = myTeams.Where(t => t.Id == teamId).First();
             return foundTeam;
         }
 
-        public Group FindGroupById(Guid groupId)
+        private Group FindGroupById(Guid groupId)
         {
             List<Group> myGroups = db.Groups.ToList();
             var foundGroup = myGroups.Where(g => g.Id == groupId).First();
