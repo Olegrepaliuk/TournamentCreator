@@ -72,20 +72,39 @@ namespace TournamentCreator.Models
             GroupType = groupType;
         }
 
+        /*
         public static bool operator ==(Group obj1, Group obj2)
         {
+            
             if ((obj1.Id == obj2.Id) && (obj1.GName == obj2.GName) && (obj1.GroupType == obj2.GroupType))
                 return true;
             return false;
+            
         }
 
         public static bool operator !=(Group obj1, Group obj2)
         {
+            
             if ((obj1.Id != obj2.Id) || (obj1.GName != obj2.GName) || (obj1.GroupType != obj2.GroupType))
                 return true;
             return false;
+            
         }
+        
 
+        
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+                return false;
+            Group g = obj as Group; 
+            if (g as Group == null)
+                return false;
+
+            return g.Id == this.Id && g.GName == this.GName && g.GroupType == this.GroupType;
+        }
+        */
+        
         public void GenerateCalendar()
         {
 
