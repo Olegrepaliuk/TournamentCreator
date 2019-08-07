@@ -208,6 +208,7 @@
     <Content Include="Views\Home\TmtSettings.cshtml" />
     <Content Include="Views\Home\EditTeam.cshtml" />
     <Content Include="Views\Home\AddTeam.cshtml" />
+    <Content Include="Views\Home\CreateTeam.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

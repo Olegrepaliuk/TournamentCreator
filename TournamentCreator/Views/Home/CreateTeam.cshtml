@@ -1,0 +1,56 @@
+﻿@model  TournamentCreator.Models.Team
+@{
+    ViewBag.Title = "CreateTeam";
+    Layout = null;
+}
+
+<html>
+<head>
+    <title>Create team </title>
+</head>
+<body>
+    <table cellspacing="0" id="maket">
+        <tr>
+            <td id="leftcol">
+                <h1>Create team</h1>
+            </td>
+            <td id="spacer"></td>
+            <td id="rightcol">
+                <h3>Create team</h3>
+                <br />
+                <br />
+                @using (Html.BeginForm("CreateTeam", "Home", new { trnmtId = ViewBag.TmtId}))
+                {
+                    <fieldset>
+                         @Html.HiddenFor(t => t.Id)
+                        <p>
+                            @Html.LabelFor(t => t.TName, "Name")
+                            <br />
+                            @Html.EditorFor(t => t.TName)
+                        </p>
+                        <p>
+                            @Html.LabelFor(t => t.Country, "Country")
+                            <br />
+                            @Html.EditorFor(t => t.Country)
+
+                        </p>
+                        <p>
+                            @Html.LabelFor(t => t.City, "City")
+                            <br />
+                            @Html.EditorFor(t => t.City)
+                        </p>
+                        <p>
+                            @Html.LabelFor(t => t.Stadium, "Stadium")
+                            <br />
+                            @Html.EditorFor(t => t.Stadium)
+                        </p>
+                        <p><input type="submit" value="Submit" /></p>
+                    </fieldset>
+                }
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
+
+

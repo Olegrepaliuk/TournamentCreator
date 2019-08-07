@@ -152,6 +152,7 @@ namespace TournamentCreator.Controllers
             var tournament = FindTournamentById(tmtId);
             var group = FindGroupById(groupId);
             ViewBag.Tournament = tournament;
+            ViewBag.GrpId = groupId;
             List<Team> availableTeams = db.Teams.ToList();
             GroupsTeams.GroupTeam = db.GroupsTeams.ToList();
             foreach (GroupsTeams gt in GroupsTeams.GroupTeam)
@@ -168,13 +169,23 @@ namespace TournamentCreator.Controllers
 
         public ActionResult CreateTeam(Guid tmtId, Guid grpId)
         {
+            ViewBag.TmtId = tmtId;
+            ViewBag.GrpId = grpId;
             return View();
         }
 
         [HttpPost]
-        public ActionResult CreateTeam(Team team, Guid tmtId)
+        public ActionResult CreateTeam(Team team, Guid trnmtId)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                List<Team> myTeams = db.Teams.ToList();
+                myTeams.Add(team);
+                db.Teams.Add(team);
+                db.SaveChanges();
+                return RedirectToAction("TmtSettings", "Home", new { tmtId = trnmtId });
+            }
+            return View("ErrorPage");
         }
         public ActionResult About()
         {
