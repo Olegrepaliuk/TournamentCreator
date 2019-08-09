@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "EditTeam";
-    Layout = null;
+    //Layout = null;
 }
 
 <html>
@@ -28,22 +28,26 @@
                         @Html.LabelFor(t => t.TName, "Name")
                         <br />
                         @Html.EditorFor(t => t.TName)
+                        @Html.ValidationMessageFor(t => t.TName)
                     </p>
                     <p>
                         @Html.LabelFor(t => t.Country, "Country")
                         <br />
                         @Html.EditorFor(t => t.Country)
+                        @Html.ValidationMessageFor(t => t.Country)
 
                     </p>
                     <p>
                         @Html.LabelFor(t => t.City, "City")
                         <br />
                         @Html.EditorFor(t => t.City)
+                        @Html.ValidationMessageFor(t => t.City)
                     </p>
                     <p>
                         @Html.LabelFor(t => t.Stadium, "Stadium")
                         <br />
                         @Html.EditorFor(t => t.Stadium)
+                        @Html.ValidationMessageFor(t => t.Stadium)
                     </p>
                     <p><input type="submit" value="Submit" /></p>
                 </fieldset>

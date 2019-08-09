@@ -143,7 +143,7 @@ namespace TournamentCreator.Controllers
                 return RedirectToAction("TmtSettings", "Home", new { tmtId = tournamentId });
                 //return RedirectToAction("TmtSettings", "Home", new { tmtId = tournamentId});
             }
-            return View("ErrorPage");
+            return View();
             
         }
 
@@ -185,7 +185,7 @@ namespace TournamentCreator.Controllers
                 db.SaveChanges();
                 return RedirectToAction("TmtSettings", "Home", new { tmtId = trnmtId });
             }
-            return View("ErrorPage");
+            return View();
         }
         public ActionResult About()
         {
