@@ -12,12 +12,16 @@ namespace TournamentCreator.Models
         [Key]
         [Required]
         public Guid Id { get; private set; }
-        [Required]
+
+        [Required(ErrorMessage = "Name is required")]
         public string TName { get; set; }
-        [Required]
+
+        [Required(ErrorMessage = "Country is required")]
         public string Country { get; set; }
-        [Required]
+
+        [Required(ErrorMessage = "City is required")]
         public string City { get; set; }
+
         public string Stadium { get; set; }
 
         public static Dictionary<Guid, Team> Teams = new Dictionary<Guid, Team>();
@@ -61,6 +65,14 @@ namespace TournamentCreator.Models
             TName = tName;
             Country = country;
             City = city;
+        }
+
+        public void ChangeFields(Team otherTeam)
+        {
+            City = otherTeam.City;
+            Country = otherTeam.Country;
+            Stadium = otherTeam.Stadium;
+            TName = otherTeam.TName;
         }
     }
 }

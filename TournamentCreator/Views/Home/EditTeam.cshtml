@@ -1,0 +1,60 @@
+﻿@model  TournamentCreator.Models.Team
+
+@{
+    ViewBag.Title = "EditTeam";
+    //Layout = null;
+}
+
+<html>
+<head>
+    <title>Edit team </title>
+</head>
+<body>
+    <table cellspacing="0" id="maket">
+        <tr>
+            <td id="leftcol">
+                <h1>Edit team</h1>
+            </td>
+            <td id="spacer"></td>
+            <td id="rightcol">
+                <h3>Edit team</h3>
+                <br />
+                <br />
+                @using (Html.BeginForm("EditTeam", "Home", new {needTeamId = ViewBag.TeamToEdit.Id, tournamentId = ViewBag.TournamentId}))
+                {
+                <fieldset>
+                    @Html.HiddenFor(t => t.Id)
+                    <p>
+                        @Html.LabelFor(t => t.TName, "Name")
+                        <br />
+                        @Html.EditorFor(t => t.TName)
+                        @Html.ValidationMessageFor(t => t.TName)
+                    </p>
+                    <p>
+                        @Html.LabelFor(t => t.Country, "Country")
+                        <br />
+                        @Html.EditorFor(t => t.Country)
+                        @Html.ValidationMessageFor(t => t.Country)
+
+                    </p>
+                    <p>
+                        @Html.LabelFor(t => t.City, "City")
+                        <br />
+                        @Html.EditorFor(t => t.City)
+                        @Html.ValidationMessageFor(t => t.City)
+                    </p>
+                    <p>
+                        @Html.LabelFor(t => t.Stadium, "Stadium")
+                        <br />
+                        @Html.EditorFor(t => t.Stadium)
+                        @Html.ValidationMessageFor(t => t.Stadium)
+                    </p>
+                    <p><input type="submit" value="Submit" /></p>
+                </fieldset>
+                }
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
+

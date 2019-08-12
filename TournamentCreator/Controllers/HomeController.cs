@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
 using TournamentCreator.Models;
+using Microsoft.Security.Application;
 
 namespace TournamentCreator.Controllers
 {
@@ -56,7 +57,9 @@ namespace TournamentCreator.Controllers
             Tournament tt = new Tournament("TestTmt");
             db.Tournaments.Add(tt);
             db.SaveChanges();
+            */
 
+            /*
             List<Tournament> tournaments = db.Tournaments.ToList();
             var t = tournaments.First();
             Team testTeam = new Team("Barca", "Spain", "Barcelona");
@@ -108,6 +111,97 @@ namespace TournamentCreator.Controllers
             return RedirectToAction("TmtSettings", "Home", new { tmtId = tournamentId});
         }
 
+        [HttpGet]
+        public ActionResult EditTeam(Guid tmtId, Guid teamId)
+        {
+            Team foundTeam = null;
+            Team.Teams = db.Teams.ToDictionary(t => t.Id);
+            if(Team.Teams.ContainsKey(teamId))
+            {
+                foundTeam = Team.Teams[teamId];
+            }
+            else
+            {
+                return View("ErrorPage");
+            }
+            ViewBag.TeamToEdit = foundTeam;
+            ViewBag.TournamentId = tmtId;
+            return View(foundTeam);
+        }
+
+        [HttpPost]
+        public ActionResult EditTeam(Team teamToEdit, Guid needTeamId, Guid tournamentId)
+        {
+            if (ModelState.IsValid)
+            {
+                List<Team> myTeams = db.Teams.ToList();
+                var foundTeam = myTeams.Where(t => t.Id == needTeamId).FirstOrDefault();
+                if(foundTeam != null)
+                {
+                    foundTeam.ChangeFields(teamToEdit);
+                }
+                db.SaveChanges();
+                return RedirectToAction("TmtSettings", "Home", new { tmtId = tournamentId });
+                //return RedirectToAction("TmtSettings", "Home", new { tmtId = tournamentId});
+            }
+            return View();
+            
+        }
+
+        public ActionResult AddTeam(Guid tmtId, Guid groupId)
+        {
+            var tournament = FindTournamentById(tmtId);
+            var group = FindGroupById(groupId);
+            ViewBag.Tournament = tournament;
+            ViewBag.GrpId = groupId;
+            List<Team> availableTeams = db.Teams.ToList();
+            GroupsTeams.GroupTeam = db.GroupsTeams.ToList();
+            foreach (GroupsTeams gt in GroupsTeams.GroupTeam)
+            {
+                if(tournament.Groups.Where(g => g.Id == gt.Group.Id).FirstOrDefault() != null)
+                {
+                    availableTeams.RemoveAll(t => t.Id == gt.Team.Id);
+                }
+                
+            }
+            ViewBag.AvailableTeams = availableTeams;
+            return View();
+        }
+
+        public ActionResult CreateTeam(Guid tmtId, Guid grpId)
+        {
+            ViewBag.TmtId = tmtId;
+            ViewBag.GrpId = grpId;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateTeam(Team team, Guid trnmtId)
+        {
+            if (ModelState.IsValid)
+            {
+                List<Team> myTeams = db.Teams.ToList();
+                myTeams.Add(team);
+                db.Teams.Add(team);
+                db.SaveChanges();
+                return RedirectToAction("TmtSettings", "Home", new { tmtId = trnmtId });
+            }
+            return View();
+        }
+
+        public ActionResult Tournament(Guid tournamentId)
+        {
+            var tournament = FindTournamentById(tournamentId);
+            foreach(Group g in tournament.Groups)
+            {
+                if(g.TeamsNum != GetGroupConnections(g).Count())
+                {
+                    return RedirectToAction("TmtSettings", "Home", new { tmtId = tournamentId });
+                }
+            }
+            return View();
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";           
@@ -116,10 +210,35 @@ namespace TournamentCreator.Controllers
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
-            
-            
+            ViewBag.Message = "Your contact page."; 
             return View();
+        }
+
+        private Tournament FindTournamentById(Guid tmtId)
+        {
+            List<Tournament> myTournaments = db.Tournaments.ToList();
+            var foundTournament = myTournaments.Where(t => t.Id == tmtId).First();
+            return foundTournament;
+        }
+
+        private Team FindTeamById(Guid teamId)
+        {
+            List<Team> myTeams = db.Teams.ToList();
+            var foundTeam = myTeams.Where(t => t.Id == teamId).First();
+            return foundTeam;
+        }
+
+        private Group FindGroupById(Guid groupId)
+        {
+            List<Group> myGroups = db.Groups.ToList();
+            var foundGroup = myGroups.Where(g => g.Id == groupId).First();
+            return foundGroup;
+        }
+
+        private List<GroupsTeams> GetGroupConnections(Group group)
+        {
+            List<GroupsTeams> gt = db.GroupsTeams.ToList();
+            return gt.Where(gts => gts.Group.Id == group.Id).ToList();
         }
     }
 }
