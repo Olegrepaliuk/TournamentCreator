@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
 using TournamentCreator.Models;
+using Microsoft.Security.Application;
 
 namespace TournamentCreator.Controllers
 {
@@ -187,6 +188,20 @@ namespace TournamentCreator.Controllers
             }
             return View();
         }
+
+        public ActionResult Tournament(Guid tournamentId)
+        {
+            var tournament = FindTournamentById(tournamentId);
+            foreach(Group g in tournament.Groups)
+            {
+                if(g.TeamsNum != GetGroupConnections(g).Count())
+                {
+                    return RedirectToAction("TmtSettings", "Home", new { tmtId = tournamentId });
+                }
+            }
+            return View();
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";           
@@ -220,5 +235,10 @@ namespace TournamentCreator.Controllers
             return foundGroup;
         }
 
+        private List<GroupsTeams> GetGroupConnections(Group group)
+        {
+            List<GroupsTeams> gt = db.GroupsTeams.ToList();
+            return gt.Where(gts => gts.Group.Id == group.Id).ToList();
+        }
     }
 }
