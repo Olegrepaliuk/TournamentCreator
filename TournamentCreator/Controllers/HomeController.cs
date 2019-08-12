@@ -77,7 +77,7 @@ namespace TournamentCreator.Controllers
             ViewBag.Tournaments = tournaments2;
 
 
-            int a = 0;
+            int a = 1;
 
             return View();
 
