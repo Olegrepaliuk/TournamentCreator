@@ -91,7 +91,14 @@ namespace TournamentCreator.Controllers
             Team.Teams = db.Teams.ToDictionary(t => t.Id);
             GroupsTeams.GroupTeam = db.GroupsTeams.ToList();
 
-            var foundTournament = myTournaments.Where(t => t.Id == tmtId).First();
+            var foundTournament = myTournaments.Where(t => t.Id == tmtId).FirstOrDefault();
+            if(foundTournament != null)
+            {
+                if(foundTournament.IsStarted)
+                {
+                    return RedirectToAction("Tournament", "Home", new { tournamentId = foundTournament.Id });
+                }
+            }
             ViewBag.GroupsOfTmt = foundTournament.Groups.ToList();
             ViewBag.FoundTmt = foundTournament;
             return View();
