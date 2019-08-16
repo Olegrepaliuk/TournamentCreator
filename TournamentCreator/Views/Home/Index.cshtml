@@ -6,51 +6,58 @@
 <html>
 <head>
     <title>Tournament creator</title>
+    <style type="text/css">
+        TABLE {
+            width: 500px;
+            border-collapse: collapse;
+            margin: auto;
+            border: 1px solid black;
+        }
+
+        TD, TH {
+            padding: 3px;
+            border: 1px solid black;
+        }
+
+    </style>
 </head>
 <body>
-    <table cellspacing="0" id="maket">
-        <tr>
-            <td id="leftcol">
-                <h1>Tournament creator</h1>
-            </td>
-            <td id="spacer"></td>
-            <td id="rightcol">
-                <h3>All tournaments</h3>
-                <table border="1" cellpadding="0" cellspacing="0" width="100">
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Name</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
+    <div style="text-align: center">
+        <h3>All tournaments</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
 
-                    <tbody>
-                        @foreach (var t in ViewBag.Tournaments)
+            <tbody>
+                @foreach (var t in ViewBag.Tournaments)
+                {
+                    <tr>
+                        <td>@t.Id</td>
+                        <td>@t.TmtName</td>
+                        @if (t.IsStarted)
                         {
-                            <tr>
-                                <td>@t.Id</td>
-                                <td>@t.TmtName</td>
-                                @if (t.IsStarted)
-                                {
-                                <td>
-                                    @Html.ActionLink("Resume", "ResumeTmt", new { tmtId = t.Id })
-                                </td>
-                                }
-                                else
-                                {
-                                    <td>
-                                        @Html.ActionLink("Settings", "TmtSettings", new {tmtId = t.Id})
-                                    </td>
-                                }
-                            </tr>
+                            <td>
+                                @Html.ActionLink("Resume", "ResumeTmt", new { tmtId = t.Id })
+                            </td>
                         }
-                    </tbody>
-                </table>
-                @Html.ActionLink("Add tournament", "AddTournament")
-                <br />
-            </td>
-        </tr>
-    </table>
+                        else
+                        {
+                            <td>
+                                @Html.ActionLink("Settings", "TmtSettings", new { tmtId = t.Id })
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+        @Html.ActionLink("Add tournament", "AddTournament")
+        <br />
+    </div>
+
 </body>
 </html>
