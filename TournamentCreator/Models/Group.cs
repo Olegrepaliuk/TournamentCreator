@@ -104,6 +104,25 @@ namespace TournamentCreator.Models
             return g.Id == this.Id && g.GName == this.GName && g.GroupType == this.GroupType;
         }
         */
+
+        public bool FreeSpaceAvailability(List<GroupsTeams> groupsTeams)
+        {
+            int connNum = 0;
+            foreach(GroupsTeams gt in groupsTeams)
+            {
+                if(gt.Group.Id == Id)
+                {
+                    connNum++;
+                }
+            }
+
+            return (connNum <= TeamsNum);
+        }
+
+        public bool FreeSpacaAvailability()
+        {
+            return (GroupTeam.Count() <= TeamsNum);   
+        }
         
         public void GenerateCalendar()
         {
