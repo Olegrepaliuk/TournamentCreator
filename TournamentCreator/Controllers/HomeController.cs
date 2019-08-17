@@ -99,7 +99,7 @@ namespace TournamentCreator.Controllers
                     return RedirectToAction("Tournament", "Home", new { tournamentId = foundTournament.Id });
                 }
             }
-            ViewBag.GroupsOfTmt = foundTournament.Groups.ToList();
+            ViewBag.GroupsOfTmt = foundTournament.Groups.OrderBy(g => g.GName).ToList();
             ViewBag.FoundTmt = foundTournament;
             return View();
         }
@@ -171,7 +171,7 @@ namespace TournamentCreator.Controllers
                 }
                 
             }
-            ViewBag.AvailableTeams = availableTeams;
+            ViewBag.AvailableTeams = availableTeams.OrderBy(t => t.TName);
             return View();
         }
 
