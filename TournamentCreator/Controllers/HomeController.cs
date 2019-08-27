@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Data.Entity;
 using TournamentCreator.Models;
 using Microsoft.Security.Application;
+using System.Threading.Tasks;
 
 namespace TournamentCreator.Controllers
 {
@@ -183,14 +184,14 @@ namespace TournamentCreator.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateTeam(Team team, Guid trnmtId)
+        public async Task<ActionResult> CreateTeam(Team team, Guid trnmtId)
         {
             if (ModelState.IsValid)
             {
                 List<Team> myTeams = db.Teams.ToList();
                 myTeams.Add(team);
                 db.Teams.Add(team);
-                db.SaveChanges();
+                await Task.Run(()=>db.SaveChanges());
                 return RedirectToAction("TmtSettings", "Home", new { tmtId = trnmtId });
             }
             return View();

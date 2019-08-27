@@ -64,7 +64,13 @@
             </table>
             if (g.TeamsNum > g.Teams.Count)
             {
-                @Html.ActionLink("Add team", "AddTeam", new { tmtId = ViewBag.FoundTmt.Id, groupId = g.Id });
+                //Html.ActionLink("Add team", "AddTeam", new { tmtId = ViewBag.FoundTmt.Id, groupId = g.Id });
+                using (Html.BeginForm("AddTeam", "Home", new { tmtId = ViewBag.FoundTmt.Id, groupId = g.Id }))
+                {
+                    <p><input type="submit" value="Add team" /></p>
+                }
+
+
             }
             <br />
         }
