@@ -1,14 +1,63 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
-    @Styles.Render("~/Content/css")
+    @{
+        //Styles.Render("~/Content/css")
+    } 
     @Scripts.Render("~/bundles/modernizr")
+
+
+    <style>
+
+        .logo {
+            float: left;
+        }
+
+        nav {
+            float: right;
+        }
+
+            nav ul {
+                margin: 0;
+                padding: 0;
+                list-style: none;
+            }
+
+            nav li {
+                display: inline-block; /*один из способов разместить элементы в строку*/
+            }
+
+        .container {
+            width: 100%;
+            max-width: 1024px;
+            padding: 15px;
+            margin: 0 auto;
+        }
+            .container:after {
+                content: "";
+                display: table;
+                clear: both;
+            }
+         
+    </style>
 </head>
 <body>
+    <header>
+        <div class="container">
+            <a href="/" class="logo">TOURNAMENT CREATOR</a>
+            <nav>
+                <ul>
+                    <li><a href="/Home/Index">Main</a></li>
+                    <li><a href="">Coeficients</a></li>
+                    <li><a href="">Contact us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
     @RenderBody()
 
     @Scripts.Render("~/bundles/jquery")
