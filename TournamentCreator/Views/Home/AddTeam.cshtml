@@ -2,6 +2,7 @@
 @{
     //Layout = null;
     ViewBag.Title = "AddTeam";
+    //Scripts.Render("~/scripts/jquery.unobtrusive-ajax.js")
 }
 
 <!DOCTYPE html>
@@ -31,6 +32,18 @@
 <body>
     <div>
         <h3>You can @Html.ActionLink("create new team", "CreateTeam", new { tmtId = ViewBag.Tournament.Id, grpId = ViewBag.GrpId }) or add team from the list below: </h3>
+        <p><input type="text" id="searchInput"></p>
+        <div id="results"></div>
+        <script type="text/javascript">
+             $(document).ready(function () {
+                $('#searchInput').on('keyup', function (e) {
+                    e.preventDefault();
+                    var name = $('#searchInput').val();
+                    name=encodeURIComponent(name);
+                    $('#results').load('@Url.Action("TeamSearch", "Home")?name='+name)
+                });
+            });
+        </script>
         <table>
             <thead>
                 <tr>

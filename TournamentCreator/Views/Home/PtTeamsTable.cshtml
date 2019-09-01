@@ -1,0 +1,25 @@
+﻿@model  IEnumerable<TournamentCreator.Models.Team>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>City</th>
+            <th>Country</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var t in Model)
+        {
+            <tr>
+                <td>@t.TName</td>
+                <td>@t.City</td>
+                <td>@t.Country</td>
+                <td>
+                    @Html.ActionLink("Add team to group", "AddTeam", new { Team = t, tmtId = ViewBag.Tournament.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
