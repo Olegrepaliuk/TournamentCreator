@@ -7,6 +7,7 @@ using System.Data.Entity;
 using TournamentCreator.Models;
 using Microsoft.Security.Application;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace TournamentCreator.Controllers
 {
@@ -68,13 +69,13 @@ namespace TournamentCreator.Controllers
 
         }
 
-        public ActionResult TmtSettings(Guid tmtId)
+        public async Task<ActionResult> TmtSettings(Guid tmtId)
         {
             //TeamContext db = new TeamContext("TmtContext2");
-            List<Tournament> myTournaments = db.Tournaments.ToList();
+            List<Tournament> myTournaments = await db.Tournaments.ToListAsync();
             Group.Groups = db.Groups.ToDictionary(g => g.Id);
             Team.Teams = db.Teams.ToDictionary(t => t.Id);
-            GroupsTeams.GroupTeam = db.GroupsTeams.ToList();
+            GroupsTeams.GroupTeam = await db.GroupsTeams.ToListAsync();
 
             var foundTournament = myTournaments.Where(t => t.Id == tmtId).FirstOrDefault();
             if(foundTournament != null)
