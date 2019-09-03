@@ -232,5 +232,12 @@ namespace TournamentCreator.Controllers
             List<GroupsTeams> gt = db.GroupsTeams.ToList();
             return gt.Where(gts => gts.Group.Id == group.Id).ToList();
         }
+
+        public ActionResult TeamSearch(string name)
+        {
+            List<Team> teams = db.Teams.ToList();
+            List<Team> searchedTeams = teams.Where(t => t.TName.IndexOf(name, StringComparison.CurrentCultureIgnoreCase) != -1).ToList();
+            return PartialView("PtTeamsTable", searchedTeams);
+        }
     }
 }
