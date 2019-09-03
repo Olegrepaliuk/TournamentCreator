@@ -41,8 +41,13 @@
                 $('#searchInput').on('keyup', function (e) {
                     e.preventDefault();
                     var name = $('#searchInput').val();
-                    name=encodeURIComponent(name);
-                    $('#results').load('@Url.Action("TeamSearch", "Home")?name='+name)
+                    if (name != '') {
+                        name = encodeURIComponent(name);
+                        $('#results').load('@Url.Action("TeamSearch", "Home")?name=' + name)
+                    }
+                    else {
+                        $('#results').empty();
+                    }
                 });
             });
         </script>

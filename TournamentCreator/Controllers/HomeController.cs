@@ -235,8 +235,9 @@ namespace TournamentCreator.Controllers
 
         public ActionResult TeamSearch(string name)
         {
+            List<Team> searchedTeams = new List<Team>();
             List<Team> teams = db.Teams.ToList();
-            List<Team> searchedTeams = teams.Where(t => t.TName.IndexOf(name, StringComparison.CurrentCultureIgnoreCase) != -1).ToList();
+            searchedTeams = teams.Where(t => t.TName.IndexOf(name, StringComparison.CurrentCultureIgnoreCase) != -1).ToList();
             return PartialView("PtTeamsTable", searchedTeams);
         }
     }
