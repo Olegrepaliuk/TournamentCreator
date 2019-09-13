@@ -241,5 +241,6 @@ namespace TournamentCreator.Controllers
             searchedTeams = teams.Where(t => t.TName.IndexOf(name, StringComparison.CurrentCultureIgnoreCase) != -1).ToList();
             return PartialView("PtTeamsTable", searchedTeams);
         }
+
     }
 }
