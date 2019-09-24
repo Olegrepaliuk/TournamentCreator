@@ -163,6 +163,23 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201909231740369_migr1.cs" />
+    <Compile Include="Migrations\201909231740369_migr1.Designer.cs">
+      <DependentUpon>201909231740369_migr1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909231742285_migr2.cs" />
+    <Compile Include="Migrations\201909231742285_migr2.Designer.cs">
+      <DependentUpon>201909231742285_migr2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909231819385_migr4.cs" />
+    <Compile Include="Migrations\201909231819385_migr4.Designer.cs">
+      <DependentUpon>201909231819385_migr4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909231823203_migr5.cs" />
+    <Compile Include="Migrations\201909231823203_migr5.Designer.cs">
+      <DependentUpon>201909231823203_migr5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Group.cs" />
     <Compile Include="Models\GroupsTeams.cs" />
     <Compile Include="Models\Match.cs" />
@@ -235,6 +252,20 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201909231740369_migr1.resx">
+      <DependentUpon>201909231740369_migr1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909231742285_migr2.resx">
+      <DependentUpon>201909231742285_migr2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909231819385_migr4.resx">
+      <DependentUpon>201909231819385_migr4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909231823203_migr5.resx">
+      <DependentUpon>201909231823203_migr5.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -16,7 +16,8 @@ namespace TournamentCreator.Models
         public Team HomeTeam { get; set; }
         public Team AwayTeam { get; set; }
 
-        public bool Completed { get; set; }
+        public bool IsCompleted { get; set; }
+
 
         [Required]
         public int HomeScore { get; set; }
@@ -28,8 +29,8 @@ namespace TournamentCreator.Models
         {
             get
             {
-                if ((HomeScore > AwayScore)&(Completed)) return HomeTeam;
-                if ((HomeScore < AwayScore) & (Completed)) return AwayTeam;
+                //if ((HomeScore > AwayScore)&(IsCompleted)) return HomeTeam;
+                //if ((HomeScore < AwayScore) & (IsCompleted)) return AwayTeam;
                 return null;
             }
         }
