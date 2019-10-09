@@ -1,0 +1,26 @@
+﻿@model TournamentCreator.Models.Tournament
+@{
+    @Styles.Render("~/content/bootstrap.css");
+}
+
+<div class="modal-content">
+    <div class="modal-header">
+        <button class="close" data-dismiss="modal" area-hidden="true">X</button>
+        <h4>Create tournament</h4>
+    </div>
+    <div class="modal-body">
+        @using (Html.BeginForm("AddTournament", "Home"))
+        {
+            <fieldset>
+                <p>
+                    @Html.LabelFor(t => t.TmtName, "Name")
+                    <br />
+                    @Html.EditorFor(t => t.TmtName)
+                    <br />
+                    @Html.ValidationMessageFor(t => t.TmtName)
+                </p>
+                <p><input type="submit" value="Submit" /></p>
+            </fieldset>
+        }
+    </div>
+</div>

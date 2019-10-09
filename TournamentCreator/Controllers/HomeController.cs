@@ -195,6 +195,26 @@ namespace TournamentCreator.Controllers
             return View();
         }
 
+        public ActionResult CreateTournament()
+        {
+            return View("PtAddTournament");
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> AddTournament(Tournament tmt)
+        {
+            if (ModelState.IsValid)
+            {
+                List<Tournament> myTournaments = db.Tournaments.ToList();
+                myTournaments.Add(tmt);
+                db.Tournaments.Add(tmt);
+                await Task.Run(() => db.SaveChanges());
+                return RedirectToAction("Index", "Home");
+            }
+            return View();
+        }
+
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";           

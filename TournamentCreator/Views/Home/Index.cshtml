@@ -64,8 +64,25 @@
                 }
             </tbody>
         </table>
-        @Html.ActionLink("Add tournament", "AddTournament")
+        <div id="modDialog" class="modal fade">
+            <div id="dialogContent" class="modal-dialog"></div>
+        </div>
+        @Html.ActionLink("Create tournament", "CreateTournament", new { @class = "tmtItem" })
         <br />
+        <script type="text/javascript">
+
+        $(function () {
+            $.ajaxSetup({ cache: false });
+           $(".tmtItem").click(function (e) {
+
+                e.preventDefault();
+                $.get(this.href, function (data) {
+                    $('#dialogContent').html(data);
+                    $('#modDialog').modal('show');
+                });
+            });
+        })
+        </script>
     </div>
 
 </body>
