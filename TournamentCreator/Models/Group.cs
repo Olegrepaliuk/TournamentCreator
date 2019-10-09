@@ -129,9 +129,36 @@ namespace TournamentCreator.Models
 
         }
 
-        public void GenerateStandartUCL()
+        public void GenerateStandartUCL(List<Team> teams)
         {
-            
+            if (teams.Count != 4) return;
+            Team[] teamsArr = new Team[4];
+            int indx = 0;
+            Random rand = new Random();
+            foreach(Team t in teams)
+            {
+                teamsArr[indx] = teams[rand.Next(0, 4-indx)];
+                teams.Remove(teamsArr[indx]);                
+            }
+
+            Matches.Add(new Match(teamsArr[0], teamsArr[1]));
+            Matches.Add(new Match(teamsArr[2], teamsArr[3]));
+
+            Matches.Add(new Match(teamsArr[3], teamsArr[0]));
+            Matches.Add(new Match(teamsArr[1], teamsArr[2]));
+
+            Matches.Add(new Match(teamsArr[0], teamsArr[2]));
+            Matches.Add(new Match(teamsArr[3], teamsArr[1]));//1-3
+
+            Matches.Add(new Match(teamsArr[2], teamsArr[0]));
+            Matches.Add(new Match(teamsArr[1], teamsArr[3]));//3-1
+
+            Matches.Add(new Match(teamsArr[1], teamsArr[0]));
+            Matches.Add(new Match(teamsArr[3], teamsArr[2]));
+
+            Matches.Add(new Match(teamsArr[0], teamsArr[3]));
+            Matches.Add(new Match(teamsArr[2], teamsArr[1]));
+
         }
     }
 }

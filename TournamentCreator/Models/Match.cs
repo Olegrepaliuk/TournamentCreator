@@ -24,12 +24,14 @@ namespace TournamentCreator.Models
         [Required]
         public int AwayScore { get; set; }
 
+        [NotMapped]
         public Team Winner
         {
             get
             {
-                if ((HomeScore > AwayScore)&(Completed)) return HomeTeam;
-                if ((HomeScore < AwayScore) & (Completed)) return AwayTeam;
+                if (!Completed) return null;
+                if (HomeScore > AwayScore) return HomeTeam;
+                if (HomeScore < AwayScore) return AwayTeam;
                 return null;
             }
         }
