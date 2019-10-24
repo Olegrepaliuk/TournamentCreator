@@ -12,6 +12,7 @@ namespace TournamentCreator.Models
         [Required]
         public Guid Id { get; private set; }
 
+        [Required(ErrorMessage = "Name is required")]
         public string TmtName { get; set; }
 
         [Required]
@@ -28,7 +29,7 @@ namespace TournamentCreator.Models
             Groups = new List<Group>();
             Matches = new List<Match>();
             Teams = new List<Team>();
-            //CreateGroups();
+            CreateGroups();
         }
 
         public Tournament(string name):this()

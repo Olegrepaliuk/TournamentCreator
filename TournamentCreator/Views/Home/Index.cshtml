@@ -1,5 +1,6 @@
 ﻿@{
     //Layout = null;
+    @model TournamentCreator.Models.Tournament
 }
 
 <!DOCTYPE html>
@@ -24,10 +25,6 @@
         div {
             text-align: center;
         }
-
-
-
-        
     </style>
 </head>
 <body>
@@ -69,19 +66,49 @@
         </div>
         @Html.ActionLink("Create tournament", "CreateTournament", new { @class = "tmtItem" })
         <br />
+
+
+        <button class="btn btn-info btn-lg" type="button" data-toggle="modal" data-target="#myModal">Показати спливне вікно</button>
+        <div id="myModal" class="modal fade">
+            <div id="dialogContent2" class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button class="close" data-dismiss="modal" area-hidden="true">X</button>
+                        <h4>Create tournament</h4>
+                    </div>
+                    <div class="modal-body">
+                        @using (Html.BeginForm("AddTournament", "Home"))
+                        {
+                            <fieldset>
+                                <p>
+                                    @Html.LabelFor(t => t.TmtName, "Name")
+                                    <br />
+                                    @Html.EditorFor(t => t.TmtName)
+                                    <br />
+                                    @Html.ValidationMessageFor(t => t.TmtName)
+                                </p>
+                                <p><input type="submit" value="Submit" /></p>
+                            </fieldset>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         <script type="text/javascript">
 
-        $(function () {
-            $.ajaxSetup({ cache: false });
-           $(".tmtItem").click(function (e) {
+            $(function () {
+                $.ajaxSetup({ cache: false });
+                $(".tmtItem").click(function (e) {
 
-                e.preventDefault();
-                $.get(this.href, function (data) {
-                    $('#dialogContent').html(data);
-                    $('#modDialog').modal('show');
+                    e.preventDefault();
+                    $.get(this.href, function (data) {
+                        $('#dialogContent').html(data);
+                        $('#modDialog').modal('show');
+                    });
                 });
-            });
-        })
+            })
         </script>
     </div>
 
