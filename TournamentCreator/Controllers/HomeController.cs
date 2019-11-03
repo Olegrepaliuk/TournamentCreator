@@ -205,6 +205,14 @@ namespace TournamentCreator.Controllers
         {
             if (ModelState.IsValid)
             {
+                if(tmt.Groups == null)
+                {
+                    tmt.Groups = new List<Group>();
+                }
+                if(tmt.Groups.Count == 0)
+                {
+                    tmt.CreateGroups();
+                }
                 List<Tournament> myTournaments = db.Tournaments.ToList();
                 myTournaments.Add(tmt);
                 db.Tournaments.Add(tmt);
