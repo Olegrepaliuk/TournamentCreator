@@ -7,7 +7,7 @@ using System.Web;
 
 namespace TournamentCreator.Models
 {
-    public class Team
+    public class Team : IEquatable<Team>
     {
         [Key]
         [Required]
@@ -73,6 +73,11 @@ namespace TournamentCreator.Models
             Country = otherTeam.Country;
             Stadium = otherTeam.Stadium;
             TName = otherTeam.TName;
+        }
+
+        public bool Equals(Team other)
+        {
+            return ((TName == other.TName) && (City == other.City) && (Country == other.Country));
         }
     }
 }
