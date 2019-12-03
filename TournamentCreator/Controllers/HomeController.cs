@@ -8,19 +8,25 @@ using TournamentCreator.Models;
 using Microsoft.Security.Application;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Collections;
 
 namespace TournamentCreator.Controllers
 {
     public class HomeController : Controller
     {
-        TeamContext db = new TeamContext("TmtContext2");
+        IRepository repo;   
+        public HomeController()
+        {
+            repo = new CRUDRepository();
+        }
+
 
         public ActionResult Index()
         {
             //to master
-            List<Team> myTeams = db.Teams.ToList();
-            List<Group> myGroups = db.Groups.ToList();
-            List<GroupsTeams> groupsTeams = db.GroupsTeams.ToList();
+            List<Team> myTeams = repo.GetAllTeams().ToList();
+            List<Group> myGroups = repo.GetAllGroups().ToList();
+            List<GroupsTeams> groupsTeams = repo.GetAllGroupsTeams().ToList();
 
 
             /*
@@ -59,7 +65,7 @@ namespace TournamentCreator.Controllers
             db.SaveChanges();
             
             */
-            List<Tournament> tournaments2 = db.Tournaments.ToList();
+            List<Tournament> tournaments2 = repo.GetAllTournaments().ToList();
             ViewBag.Tournaments = tournaments2;
 
 
@@ -72,10 +78,10 @@ namespace TournamentCreator.Controllers
         public async Task<ActionResult> TmtSettings(Guid tmtId)
         {
             //TeamContext db = new TeamContext("TmtContext2");
-            List<Tournament> myTournaments = await db.Tournaments.ToListAsync();
-            Group.Groups = db.Groups.ToDictionary(g => g.Id);
-            Team.Teams = db.Teams.ToDictionary(t => t.Id);
-            GroupsTeams.GroupTeam = await db.GroupsTeams.ToListAsync();
+            List<Tournament> myTournaments = repo.GetAllTournaments().ToList();
+            Group.Groups = repo.GetAllGroups().ToDictionary(g => g.Id);
+            Team.Teams = repo.GetAllTeams().ToDictionary(t => t.Id);
+            GroupsTeams.GroupTeam = repo.GetAllGroupsTeams().ToList();
 
             var foundTournament = myTournaments.Where(t => t.Id == tmtId).FirstOrDefault();
             if(foundTournament != null)
@@ -93,14 +99,15 @@ namespace TournamentCreator.Controllers
         public ActionResult DelTeamFromGroup(Guid tournamentId, Guid teamId, Guid groupId)
         {
             //TeamContext db = new TeamContext("TmtContext2");
-            List<Group> myGroups = db.Groups.ToList();
+            List<Group> myGroups = repo.GetAllGroups().ToList();
             var foundGroup = myGroups.Where(t => t.Id == groupId).FirstOrDefault();
             //var foundTeam = foundGroup.Teams.Where(t => t.Id == teamId).First();
             //foundGroup.Teams.Remove(foundTeam);
-            GroupsTeams.GroupTeam.RemoveAll(gt => (gt.GroupId ==groupId)&(gt.TeamId == teamId));
-            var foundConn = db.GroupsTeams.First(gt => (gt.GroupId == groupId) & (gt.TeamId == teamId));
-            if (foundConn != null) db.GroupsTeams.Remove(foundConn);
-            db.SaveChanges();
+            GroupsTeams.GroupTeam.RemoveAll(gt => (gt.GroupId == groupId) & (gt.TeamId == teamId));
+            //var foundConn = db.GroupsTeams.First(gt => (gt.GroupId == groupId) & (gt.TeamId == teamId));
+            //if (foundConn != null) db.GroupsTeams.Remove(foundConn);
+            //db.SaveChanges();
+            repo.DeleteTeamFromGroup(groupId, teamId);
             return RedirectToAction("TmtSettings", "Home", new { tmtId = tournamentId});
         }
 
@@ -108,7 +115,7 @@ namespace TournamentCreator.Controllers
         public ActionResult EditTeam(Guid tmtId, Guid teamId)
         {
             Team foundTeam = null;
-            Team.Teams = db.Teams.ToDictionary(t => t.Id);
+            Team.Teams = repo.GetAllTeams().ToDictionary(t => t.Id);
             if(Team.Teams.ContainsKey(teamId))
             {
                 foundTeam = Team.Teams[teamId];
@@ -127,13 +134,18 @@ namespace TournamentCreator.Controllers
         {
             if (ModelState.IsValid)
             {
-                List<Team> myTeams = db.Teams.ToList();
-                var foundTeam = myTeams.Where(t => t.Id == needTeamId).FirstOrDefault();
-                if(foundTeam != null)
-                {
-                    foundTeam.ChangeFields(teamToEdit);
-                }
-                db.SaveChanges();
+                //
+                //List<Team> myTeams = db.Teams.ToList();
+                //var foundTeam = myTeams.Where(t => t.Id == needTeamId).FirstOrDefault();
+                //if(foundTeam != null)
+                //{
+                //    foundTeam.ChangeFields(teamToEdit);
+                //}
+                //db.SaveChanges();
+                //
+
+                repo.EditTeam(teamToEdit, needTeamId);
+
                 return RedirectToAction("TmtSettings", "Home", new { tmtId = tournamentId });
                 //return RedirectToAction("TmtSettings", "Home", new { tmtId = tournamentId});
             }
@@ -147,8 +159,8 @@ namespace TournamentCreator.Controllers
             var group = FindGroupById(groupId);
             ViewBag.Tournament = tournament;
             ViewBag.GrpId = groupId;
-            List<Team> availableTeams = db.Teams.ToList();
-            GroupsTeams.GroupTeam = db.GroupsTeams.ToList();
+            List<Team> availableTeams = repo.GetAllTeams().ToList();
+            GroupsTeams.GroupTeam = repo.GetAllGroupsTeams().ToList();
             foreach (GroupsTeams gt in GroupsTeams.GroupTeam)
             {
                 if(tournament.Groups.Where(g => g.Id == gt.Group.Id).FirstOrDefault() != null)
@@ -173,10 +185,12 @@ namespace TournamentCreator.Controllers
         {
             if (ModelState.IsValid)
             {
-                List<Team> myTeams = db.Teams.ToList();
-                myTeams.Add(team);
-                db.Teams.Add(team);
-                await Task.Run(()=>db.SaveChanges());
+                //
+                //List<Team> myTeams = db.Teams.ToList();
+                //myTeams.Add(team);
+                //db.Teams.Add(team);
+                //await Task.Run(()=>db.SaveChanges());
+                //
                 return RedirectToAction("TmtSettings", "Home", new { tmtId = trnmtId });
             }
             return View();
@@ -213,10 +227,15 @@ namespace TournamentCreator.Controllers
                 {
                     tmt.CreateGroups();
                 }
-                List<Tournament> myTournaments = db.Tournaments.ToList();
-                myTournaments.Add(tmt);
-                db.Tournaments.Add(tmt);
-                await Task.Run(() => db.SaveChanges());
+                //
+                //List<Tournament> myTournaments = db.Tournaments.ToList();
+                //myTournaments.Add(tmt);
+                //db.Tournaments.Add(tmt);
+                //await Task.Run(() => db.SaveChanges());
+                //
+
+                repo.AddTournament(tmt);
+
                 return RedirectToAction("Index", "Home");
             }
             return View();
@@ -237,35 +256,35 @@ namespace TournamentCreator.Controllers
 
         private Tournament FindTournamentById(Guid tmtId)
         {
-            List<Tournament> myTournaments = db.Tournaments.ToList();
+            List<Tournament> myTournaments = repo.GetAllTournaments().ToList();
             var foundTournament = myTournaments.Where(t => t.Id == tmtId).First();
             return foundTournament;
         }
 
         private Team FindTeamById(Guid teamId)
         {
-            List<Team> myTeams = db.Teams.ToList();
+            List<Team> myTeams = repo.GetAllTeams().ToList();
             var foundTeam = myTeams.Where(t => t.Id == teamId).First();
             return foundTeam;
         }
 
         private Group FindGroupById(Guid groupId)
         {
-            List<Group> myGroups = db.Groups.ToList();
+            List<Group> myGroups = repo.GetAllGroups().ToList();
             var foundGroup = myGroups.Where(g => g.Id == groupId).First();
             return foundGroup;
         }
 
         private List<GroupsTeams> GetGroupConnections(Group group)
         {
-            List<GroupsTeams> gt = db.GroupsTeams.ToList();
+            List<GroupsTeams> gt = repo.GetAllGroupsTeams().ToList();
             return gt.Where(gts => gts.Group.Id == group.Id).ToList();
         }
 
         public ActionResult TeamSearch(string name)
         {
             List<Team> searchedTeams = new List<Team>();
-            List<Team> teams = db.Teams.ToList();
+            List<Team> teams = repo.GetAllTeams().ToList();
             searchedTeams = teams.Where(t => t.TName.IndexOf(name, StringComparison.CurrentCultureIgnoreCase) != -1).ToList();
             return PartialView("PtTeamsTable", searchedTeams);
         }

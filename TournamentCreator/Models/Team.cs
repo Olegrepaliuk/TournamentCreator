@@ -76,7 +76,7 @@ namespace TournamentCreator.Models
         }
 
         public bool Equals(Team other)
-        {
+        { 
             return ((TName == other.TName) && (City == other.City) && (Country == other.Country));
         }
     }
