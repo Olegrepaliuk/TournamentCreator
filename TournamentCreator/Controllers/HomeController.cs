@@ -77,7 +77,6 @@ namespace TournamentCreator.Controllers
 
         public async Task<ActionResult> TmtSettings(Guid tmtId)
         {
-            //TeamContext db = new TeamContext("TmtContext2");
             List<Tournament> myTournaments = repo.GetAllTournaments().ToList();
             Group.Groups = repo.GetAllGroups().ToDictionary(g => g.Id);
             Team.Teams = repo.GetAllTeams().ToDictionary(t => t.Id);
@@ -98,15 +97,11 @@ namespace TournamentCreator.Controllers
 
         public ActionResult DelTeamFromGroup(Guid tournamentId, Guid teamId, Guid groupId)
         {
-            //TeamContext db = new TeamContext("TmtContext2");
             List<Group> myGroups = repo.GetAllGroups().ToList();
             var foundGroup = myGroups.Where(t => t.Id == groupId).FirstOrDefault();
             //var foundTeam = foundGroup.Teams.Where(t => t.Id == teamId).First();
             //foundGroup.Teams.Remove(foundTeam);
             GroupsTeams.GroupTeam.RemoveAll(gt => (gt.GroupId == groupId) & (gt.TeamId == teamId));
-            //var foundConn = db.GroupsTeams.First(gt => (gt.GroupId == groupId) & (gt.TeamId == teamId));
-            //if (foundConn != null) db.GroupsTeams.Remove(foundConn);
-            //db.SaveChanges();
             repo.DeleteTeamFromGroup(groupId, teamId);
             return RedirectToAction("TmtSettings", "Home", new { tmtId = tournamentId});
         }
@@ -134,18 +129,7 @@ namespace TournamentCreator.Controllers
         {
             if (ModelState.IsValid)
             {
-                //
-                //List<Team> myTeams = db.Teams.ToList();
-                //var foundTeam = myTeams.Where(t => t.Id == needTeamId).FirstOrDefault();
-                //if(foundTeam != null)
-                //{
-                //    foundTeam.ChangeFields(teamToEdit);
-                //}
-                //db.SaveChanges();
-                //
-
                 repo.EditTeam(teamToEdit, needTeamId);
-
                 return RedirectToAction("TmtSettings", "Home", new { tmtId = tournamentId });
                 //return RedirectToAction("TmtSettings", "Home", new { tmtId = tournamentId});
             }
@@ -185,12 +169,7 @@ namespace TournamentCreator.Controllers
         {
             if (ModelState.IsValid)
             {
-                //
-                //List<Team> myTeams = db.Teams.ToList();
-                //myTeams.Add(team);
-                //db.Teams.Add(team);
-                //await Task.Run(()=>db.SaveChanges());
-                //
+                repo.AddTeam(team);
                 return RedirectToAction("TmtSettings", "Home", new { tmtId = trnmtId });
             }
             return View();
@@ -227,13 +206,6 @@ namespace TournamentCreator.Controllers
                 {
                     tmt.CreateGroups();
                 }
-                //
-                //List<Tournament> myTournaments = db.Tournaments.ToList();
-                //myTournaments.Add(tmt);
-                //db.Tournaments.Add(tmt);
-                //await Task.Run(() => db.SaveChanges());
-                //
-
                 repo.AddTournament(tmt);
 
                 return RedirectToAction("Index", "Home");
