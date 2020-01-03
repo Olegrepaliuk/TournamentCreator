@@ -8,10 +8,10 @@ namespace TournamentCreator.Models
 {
     public interface IRepository
     {
-        IEnumerable<Team> GetAllTeams();
-        IEnumerable<GroupsTeams> GetAllGroupsTeams();
-        IEnumerable<Group> GetAllGroups();
-        IEnumerable<Tournament> GetAllTournaments();
+        IEnumerable<Team> Teams { get; }
+        IEnumerable<GroupsTeams> GroupsTeams { get; }
+        IEnumerable<Group> Groups { get; }
+        IEnumerable<Tournament> Tournaments { get; }
 
         void DeleteTeamFromGroup(Guid groupId, Guid teamId);
         void AddTournament(Tournament tmt);

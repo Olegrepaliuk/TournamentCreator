@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace TournamentCreator.Models
@@ -14,42 +15,58 @@ namespace TournamentCreator.Models
             db = new TeamContext("TmtContext2");
         }
 
-        public IEnumerable<Team> GetAllTeams()
+        public IEnumerable<Team> Teams
         {
-            return db.Teams;
+            get
+            {
+                return db.Teams;
+            }
+            
         }
 
-        public IEnumerable<Group> GetAllGroups()
+        public IEnumerable<Group> Groups
         {
-            return db.Groups;
+            get
+            {
+                return db.Groups;
+            }
+            
         }
 
-        public IEnumerable<Tournament> GetAllTournaments()
+        public IEnumerable<Tournament> Tournaments
         {
-            return db.Tournaments;
+            get
+            {
+                return db.Tournaments;
+            }
+            
         }
-        public IEnumerable<GroupsTeams> GetAllGroupsTeams()
+        public IEnumerable<GroupsTeams> GroupsTeams
         {
-            return db.GroupsTeams;
+            get
+            {
+                return db.GroupsTeams;
+            }
+            
         }
 
-        public async void DeleteTeamFromGroup(Guid groupId, Guid teamId)
+        public void DeleteTeamFromGroup(Guid groupId, Guid teamId)
         {
             var foundConn = db.GroupsTeams.First(gt => (gt.GroupId == groupId) & (gt.TeamId == teamId));
             if (foundConn != null) db.GroupsTeams.Remove(foundConn);
-            await db.SaveChangesAsync();
+            db.SaveChangesAsync();
         }
 
-        public async void AddTournament(Tournament tmt)
+        public void AddTournament(Tournament tmt)
         {
             db.Tournaments.Add(tmt);
-            await db.SaveChangesAsync();
+            db.SaveChangesAsync();
         }
 
-        public async void AddTeam(Team team)
+        public void AddTeam(Team team)
         {
             db.Teams.Add(team);
-            await db.SaveChangesAsync();
+            db.SaveChangesAsync();
         }
 
         public void EditTeam(Team team, Guid teamToEditId)
@@ -60,7 +77,7 @@ namespace TournamentCreator.Models
             {
                 foundTeam.ChangeFields(team);
             }
-            db.SaveChanges();
+            db.SaveChangesAsync();
         }
     }
 }
