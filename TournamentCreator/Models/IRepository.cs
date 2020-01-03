@@ -14,6 +14,7 @@ namespace TournamentCreator.Models
         IEnumerable<Tournament> Tournaments { get; }
 
         void DeleteTeamFromGroup(Guid groupId, Guid teamId);
+        void AddTeamToGroup(Guid groupId, Guid teamId);
         void AddTournament(Tournament tmt);
         void AddTeam(Team team);
         void EditTeam(Team team, Guid teamToEditId);

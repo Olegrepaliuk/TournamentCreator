@@ -157,6 +157,17 @@ namespace TournamentCreator.Controllers
             return View();
         }
 
+        public async Task<ActionResult> AddTeamToGroup(Guid teamId, Guid tournamentId, Guid groupId)
+        {
+            var group = FindGroupById(groupId);
+            var team = FindTeamById(teamId);
+            if(group != null && team != null)
+            {
+                await Task.Run(() => repo.AddTeamToGroup(groupId, teamId));    
+            }
+            return RedirectToAction("TmtSettings", "Home", new { tmtId = tournamentId });
+        }
+
         public ActionResult CreateTeam(Guid tmtId, Guid grpId)
         {
             ViewBag.TmtId = tmtId;

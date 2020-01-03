@@ -57,6 +57,12 @@ namespace TournamentCreator.Models
             db.SaveChangesAsync();
         }
 
+        public void AddTeamToGroup(Guid groupId, Guid teamId)
+        {
+            db.GroupsTeams.Add(new GroupsTeams(groupId, teamId));
+            db.SaveChangesAsync();
+        }
+
         public void AddTournament(Tournament tmt)
         {
             db.Tournaments.Add(tmt);
