@@ -131,7 +131,6 @@ namespace TournamentCreator.Controllers
             {
                 await Task.Run(()=> repo.EditTeam(teamToEdit, needTeamId));
                 return RedirectToAction("TmtSettings", "Home", new { tmtId = tournamentId });
-                //return RedirectToAction("TmtSettings", "Home", new { tmtId = tournamentId});
             }
             return View();
             
