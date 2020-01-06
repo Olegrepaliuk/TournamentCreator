@@ -18,5 +18,8 @@ namespace TournamentCreator.Models
         void AddTournament(Tournament tmt);
         void AddTeam(Team team);
         void EditTeam(Team team, Guid teamToEditId);
+        Tournament FindTournamentById(Guid tmtId);
+        Team FindTeamById(Guid teamId);
+        Group FindGroupById(Guid groupId);
     }
 }

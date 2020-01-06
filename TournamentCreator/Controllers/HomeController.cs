@@ -89,10 +89,16 @@ namespace TournamentCreator.Controllers
                 {
                     return RedirectToAction("Tournament", "Home", new { tournamentId = foundTournament.Id });
                 }
+                ViewBag.GroupsOfTmt = foundTournament.Groups.OrderBy(g => g.GName).ToList();
+                ViewBag.FoundTmt = foundTournament;
+                return View();
             }
-            ViewBag.GroupsOfTmt = foundTournament.Groups.OrderBy(g => g.GName).ToList();
-            ViewBag.FoundTmt = foundTournament;
-            return View();
+            else
+            {
+                return HttpNotFound("Could not find such tournament");
+            }
+            
+            
         }
 
         public async Task<ActionResult> DelTeamFromGroup(Guid tournamentId, Guid teamId, Guid groupId)
@@ -137,10 +143,10 @@ namespace TournamentCreator.Controllers
             
         }
 
-        public ActionResult AddTeam(Guid tmtId, Guid groupId)
+        public async Task<ActionResult> AddTeam(Guid tmtId, Guid groupId)
         {
-            var tournament = FindTournamentById(tmtId);
-            var group = FindGroupById(groupId);
+            Task<Tournament> findingTmt = Task.Run(()=>repo.FindTournamentById(tmtId));
+            var tournament = await findingTmt;
             ViewBag.Tournament = tournament;
             ViewBag.GrpId = groupId;
             List<Team> availableTeams = repo.Teams.ToList();
@@ -159,8 +165,8 @@ namespace TournamentCreator.Controllers
 
         public async Task<ActionResult> AddTeamToGroup(Guid teamId, Guid tournamentId, Guid groupId)
         {
-            var group = FindGroupById(groupId);
-            var team = FindTeamById(teamId);
+            var group = repo.FindGroupById(groupId);
+            var team = repo.FindTeamById(teamId);
             if(group != null && team != null)
             {
                 await Task.Run(() => repo.AddTeamToGroup(groupId, teamId));    
@@ -188,7 +194,7 @@ namespace TournamentCreator.Controllers
 
         public ActionResult Tournament(Guid tournamentId)
         {
-            var tournament = FindTournamentById(tournamentId);
+            var tournament = repo.FindTournamentById(tournamentId);
             foreach(Group g in tournament.Groups)
             {
                 if(g.TeamsNum != GetGroupConnections(g).Count())
@@ -235,27 +241,6 @@ namespace TournamentCreator.Controllers
         {
             ViewBag.Message = "Your contact page."; 
             return View();
-        }
-
-        private Tournament FindTournamentById(Guid tmtId)
-        {
-            List<Tournament> myTournaments = repo.Tournaments.ToList();
-            var foundTournament = myTournaments.Where(t => t.Id == tmtId).First();
-            return foundTournament;
-        }
-
-        private Team FindTeamById(Guid teamId)
-        {
-            List<Team> myTeams = repo.Teams.ToList();
-            var foundTeam = myTeams.Where(t => t.Id == teamId).First();
-            return foundTeam;
-        }
-
-        private Group FindGroupById(Guid groupId)
-        {
-            List<Group> myGroups = repo.Groups.ToList();
-            var foundGroup = myGroups.Where(g => g.Id == groupId).First();
-            return foundGroup;
         }
 
         private List<GroupsTeams> GetGroupConnections(Group group)
