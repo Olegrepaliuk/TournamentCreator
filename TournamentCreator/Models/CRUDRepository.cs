@@ -85,5 +85,21 @@ namespace TournamentCreator.Models
             }
             db.SaveChangesAsync();
         }
+
+        public Tournament FindTournamentById(Guid tmtId)
+        {
+            return Tournaments.Where(t => t.Id == tmtId).FirstOrDefault();
+        }
+
+        public Team FindTeamById(Guid teamId)
+        {
+            return Teams.Where(t => t.Id == teamId).FirstOrDefault();
+        }
+
+        public Group FindGroupById(Guid groupId)
+        {
+            return Groups.Where(g => g.Id == groupId).FirstOrDefault();
+        }
+
     }
 }
