@@ -65,6 +65,7 @@ namespace TournamentCreator.Controllers
             db.SaveChanges();
             
             */
+            //test coomit
             List<Tournament> tournaments2 = repo.Tournaments.ToList();
             ViewBag.Tournaments = tournaments2;
 
