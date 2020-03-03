@@ -1,17 +1,37 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="~/Content/ball.ico" type="image/x-icon">
     <title>@ViewBag.Title</title>
     @{
-        //Styles.Render("~/Content/css")
-    } 
-    @Scripts.Render("~/bundles/modernizr")
 
+    }
 
     <style>
+        table {
+            width: 500px;
+            border-collapse: collapse;
+            margin: auto;
+            border: 1px solid black;
+        }
+
+        td, th {
+            padding: 3px;
+            border: 1px solid black;
+            text-align: center;
+        }
+
+        div {
+            text-align: center;
+        }
 
         .logo {
             float: left;
@@ -21,15 +41,15 @@
             float: right;
         }
 
-        nav ul {
-            margin: 0;
-            padding: 0;
-            list-style: none;
-        }
+            nav ul {
+                margin: 0;
+                padding: 0;
+                list-style: none;
+            }
 
-         nav li {
-            display: inline-block; /*один из способов разместить элементы в строку*/
-         }
+            nav li {
+                display: inline-block;
+            }
 
         .container {
             width: 100%;
@@ -37,12 +57,12 @@
             padding: 15px;
             margin: 0 auto;
         }
-        .container:after {
-            content: "";
-            display: table;
-            clear: both;
-        }
-         
+
+            .container:after {
+                content: "";
+                display: table;
+                clear: both;
+            }
     </style>
 </head>
 <body>
@@ -57,13 +77,10 @@
                 </ul>
             </nav>
         </div>
-    </header> 
+    </header>
     @RenderBody()
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/jqueryval")
-    @Styles.Render("~/Content/css")
+
     @RenderSection("scripts", required: false)
 </body>
 </html>

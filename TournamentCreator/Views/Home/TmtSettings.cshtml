@@ -1,79 +1,52 @@
 ﻿
 @{
-    ViewBag.Title = "TmtSettings";
+    ViewBag.Title = "Tournament settings";
 }
 
-<!DOCTYPE html>
+<div>
+    <h3>Groups: </h3>
+    @foreach (var g in ViewBag.GroupsOfTmt)
+    {
+        <table>
+            <caption>@g.GName</caption>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>City</th>
+                    <th>Country</th>
+                    <th>Edit team</th>
+                    <th>Delete team</th>
+                </tr>
+            </thead>
 
-<html>
-<head>
-    <title>Tournament settings</title>
-    <link rel="shortcut icon" href="~/Content/ball.ico" type="image/x-icon">
-    <style type="text/css">
-        table {
-            width: 500px;
-            border-collapse: collapse;
-            margin: auto;
-            border: 1px solid black;
-        }
-
-        td, th {
-            padding: 3px;
-            border: 1px solid black;
-        }
-
-        div {
-            text-align: center;
-        }
-    </style>
-</head>
-<body>
-    <div>
-        <h3>Groups: </h3>
-        @foreach (var g in ViewBag.GroupsOfTmt)
-        {
-            <table>
-                <caption>@g.GName</caption>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>City</th>
-                        <th>Country</th>
-                        <th>Edit team</th>
-                        <th>Delete team</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    @foreach (var t in g.Teams)
-                    {
-                        <tr>
-                            <td>@t.TName</td>
-                            <td>@t.City</td>
-                            <td>@t.Country</td>
-                            <td>
-                                @Html.ActionLink("Edit this team", "EditTeam", new { tmtId = ViewBag.FoundTmt.Id, teamId = t.Id })
-                            </td>
-                            <td>
-                                @Html.ActionLink("Delete this team", "DelTeamFromGroup", new { tournamentId = ViewBag.FoundTmt.Id, groupId = g.Id, teamId = t.Id })
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-            if (g.TeamsNum > g.Teams.Count)
-            {
-                
-                using (Html.BeginForm("AddTeam", "Home", new { tmtId = ViewBag.FoundTmt.Id, groupId = g.Id }))
+            <tbody>
+                @foreach (var t in g.Teams)
                 {
-                    <p><input type="submit" value="Add team" /></p>
+                    <tr>
+                        <td>@t.TName</td>
+                        <td>@t.City</td>
+                        <td>@t.Country</td>
+                        <td>
+                            @Html.ActionLink("Edit this team", "EditTeam", new { tmtId = ViewBag.FoundTmt.Id, teamId = t.Id })
+                        </td>
+                        <td>
+                            @Html.ActionLink("Delete this team", "DelTeamFromGroup", new { tournamentId = ViewBag.FoundTmt.Id, groupId = g.Id, teamId = t.Id })
+                        </td>
+                    </tr>
                 }
+            </tbody>
+        </table>
+        if (g.TeamsNum > g.Teams.Count)
+        {
 
-
+            using (Html.BeginForm("AddTeam", "Home", new { tmtId = ViewBag.FoundTmt.Id, groupId = g.Id }))
+            {
+                <p><input type="submit" value="Add team" /></p>
             }
-            <br />
+
         }
-    </div>
-</body>
-</html>
+        <br />
+    }
+</div>
+
 

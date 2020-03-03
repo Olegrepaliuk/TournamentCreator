@@ -1,77 +1,46 @@
 ﻿@model  TournamentCreator.Models.Team
 @{
     ViewBag.Title = "CreateTeam";
-    //Layout = null;
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <title>Create team </title>
-    <link rel="shortcut icon" href="~/Content/ball.ico" type="image/x-icon">
-    <style type="text/css">
-        table {
-            width: 500px;
-            border-collapse: collapse;
-            margin: auto;
-            border: 1px solid black;
-        }
-
-        td, th {
-            padding: 3px;
-            border: 1px solid black;
-        }
-
-        div {
-            text-align: center;
-        }
-    </style>
-
-</head>
-<body>
-    <div>
-        <h3>Create team</h3>
-        <br />
-        <br />
-        @using (Html.BeginForm("CreateTeam", "Home", new { trnmtId = ViewBag.TmtId }))
-        {
-            <fieldset>
-                @Html.HiddenFor(t => t.Id)
-                <p>
-                    @Html.LabelFor(t => t.TName, "Name")
-                    <br />
-                    @Html.EditorFor(t => t.TName)
-                    <br/>
-                    @Html.ValidationMessageFor(t => t.TName)
-                </p>
-                <p>
-                    @Html.LabelFor(t => t.Country, "Country")
-                    <br />
-                    @Html.EditorFor(t => t.Country)
-                    <br/>
-                    @Html.ValidationMessageFor(t => t.Country)
-                </p>
-                <p>
-                    @Html.LabelFor(t => t.City, "City")
-                    <br />
-                    @Html.EditorFor(t => t.City)
-                    <br/>
-                    @Html.ValidationMessageFor(t => t.City)
-                </p>
-                <p>
-                    @Html.LabelFor(t => t.Stadium, "Stadium")
-                    <br />
-                    @Html.EditorFor(t => t.Stadium)
-                    <br/>
-                    @Html.ValidationMessageFor(t => t.Stadium)
-                </p>
-                <p><input type="submit" value="Submit" /></p>
-            </fieldset>
-        }
-    </div>
-
-</body>
-</html>
-
+<div>
+    <h3>Create team</h3>
+    <br />
+    <br />
+    @using (Html.BeginForm("CreateTeam", "Home", new { trnmtId = ViewBag.TmtId }))
+    {
+        <fieldset>
+            @Html.HiddenFor(t => t.Id)
+            <p>
+                @Html.LabelFor(t => t.TName, "Name")
+                <br />
+                @Html.EditorFor(t => t.TName)
+                <br />
+                @Html.ValidationMessageFor(t => t.TName)
+            </p>
+            <p>
+                @Html.LabelFor(t => t.Country, "Country")
+                <br />
+                @Html.EditorFor(t => t.Country)
+                <br />
+                @Html.ValidationMessageFor(t => t.Country)
+            </p>
+            <p>
+                @Html.LabelFor(t => t.City, "City")
+                <br />
+                @Html.EditorFor(t => t.City)
+                <br />
+                @Html.ValidationMessageFor(t => t.City)
+            </p>
+            <p>
+                @Html.LabelFor(t => t.Stadium, "Stadium")
+                <br />
+                @Html.EditorFor(t => t.Stadium)
+                <br />
+                @Html.ValidationMessageFor(t => t.Stadium)
+            </p>
+            <p><input type="submit" value="Submit" /></p>
+        </fieldset>
+    }
+</div>
 
