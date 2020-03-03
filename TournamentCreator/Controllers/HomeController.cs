@@ -37,7 +37,7 @@ namespace TournamentCreator.Controllers
             //Team t2 = new Team();
             //Match match1 = new Match();
             //Guid g = match1.Id;
-
+            int a =5;
 
             List<Tournament> tournaments = db.Tournaments.ToList();
             ViewBag.Tournaments = tournaments;
@@ -50,7 +50,7 @@ namespace TournamentCreator.Controllers
             db.Tournaments.Add(tt);
             db.SaveChanges();
             */
-
+            
             /*
             List<Tournament> tournaments = db.Tournaments.ToList();
             var t = tournaments.First();
